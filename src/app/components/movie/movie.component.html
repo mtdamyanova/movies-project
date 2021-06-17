@@ -1,7 +1,9 @@
-<table class="table table-bordered table-striped table-hover">
+<table
+  class="table table-bordered table-striped table-dark table-hover align-middle"
+>
   <thead class="thead-dark">
     <tr>
-      <th scope="col">#</th>
+      <th scope="col" routerLink>#</th>
       <th scope="col">Title</th>
       <th scope="col" class="description">Description</th>
       <th scope="col">Director</th>
@@ -18,7 +20,6 @@
       <td>{{ movie.description }}</td>
       <td>{{ movie.director }}</td>
       <td>{{ movie.year | date: "dd MMM yyyy" }}</td>
-      <td>{{ movie.director }}</td>
       <td>
         <img [src]="movie.img" class="mr-2" style="width: 200px" />
       </td>
