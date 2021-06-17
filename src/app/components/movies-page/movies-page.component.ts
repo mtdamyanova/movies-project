@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Movie } from 'src/app/shared/models/movie.model';
 import { MoviesService } from 'src/app/shared/services/movies.service';
 
@@ -10,15 +10,14 @@ import { MoviesService } from 'src/app/shared/services/movies.service';
 })
 export class MoviesPageComponent implements OnInit {
   movies: Movie[] = [];
-  subscription: Subscription;
 
   constructor(private movieService: MoviesService) {}
 
   ngOnInit() {
-    this.movieService.getMovies().subscribe();
-    this.movieService.moviesChanged.subscribe((res) => {
-      this.movies = res;
-      console.log(this.movies);
-    });
+    this.movieService.fetchMovies().subscribe();
+  }
+
+  getMovies(): Observable<Movie[]> {
+    return this.movieService.moviesChanged;
   }
 }
