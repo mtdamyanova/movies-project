@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { Movie } from '../shared/models/movie.model';
-import { MoviesService } from './movies.service';
+import { MoviesService } from '../shared/services/movies.service';
 
 @Component({
   selector: 'app-all-movies',
