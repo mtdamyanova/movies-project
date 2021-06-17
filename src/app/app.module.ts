@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
+import { AllMoviesComponent } from './all-movies/all-movies.component';
+import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './components/header/header.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { MyRouteRoutes } from './my-route.routing';
@@ -21,7 +23,6 @@ import { HttpClientModule } from "@angular/common/http";
     FormsModule,
     HttpClientModule,
     MyRouteRoutes,
-    
   ],
   providers: [],
   bootstrap: [AppComponent]
