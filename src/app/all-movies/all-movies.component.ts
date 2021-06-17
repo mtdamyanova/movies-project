@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { Movie } from 'src/app/shared/models/movie.model';
-import { MoviesService } from 'src/app/shared/services/movies.service';
+import { Subject, Subscription } from 'rxjs';
+import { Movie } from '../shared/models/movie.model';
+import { MoviesService } from './movies.service';
 
 @Component({
-  selector: 'app-movies-page',
-  templateUrl: './movies-page.component.html',
-  styleUrls: ['./movies-page.component.css'],
+  selector: 'app-all-movies',
+  templateUrl: './all-movies.component.html',
+  styleUrls: ['./all-movies.component.css'],
 })
-export class MoviesPageComponent implements OnInit {
+export class AllMoviesComponent implements OnInit {
   movies: Movie[] = [];
   subscription: Subscription;
 
