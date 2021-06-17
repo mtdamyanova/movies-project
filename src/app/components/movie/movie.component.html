@@ -1,13 +1,23 @@
-<table
-  class="table table-bordered table-striped table-dark table-hover align-middle"
->
+<table class="table table-bordered table-striped table-dark table-hover align-middle">
   <thead class="thead-dark">
     <tr>
       <th scope="col" routerLink>#</th>
-      <th scope="col">Title</th>
+      <th scope="col" class="arrows-container">
+        <span>Title</span>
+        <span>
+          <span class="arrows" (click)="ascendingSort('title')">&#8593;</span>
+          <span class="arrows" (click)="descendingSort('title')">&#8595;</span>
+        </span>
+      </th>
       <th scope="col" class="description">Description</th>
       <th scope="col">Director</th>
-      <th scope="col">Year</th>
+      <th scope="col" class="arrows-container">
+        <span>Year</span>
+        <span>
+          <span class="arrows" (click)="ascendingSort('year')">&#8593;</span>
+          <span class="arrows" (click)="descendingSort('year')">&#8595;</span>
+        </span>
+      </th>
       <th scope="col">Poster</th>
     </tr>
   </thead>

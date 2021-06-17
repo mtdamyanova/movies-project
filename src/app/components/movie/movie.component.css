@@ -1,3 +1,13 @@
 .description {
   width: 30%;
 }
+.arrows {
+  color: white;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.arrows-container{
+  display: flex;
+  justify-content: space-between;
+}
