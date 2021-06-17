@@ -1,0 +1,12 @@
+.navbar {
+  border-radius: 0;
+  color: white;
+  display: flex;
+}
+.collapse{
+  color: white;
+}
+.navbar-nav,
+.navbar-header {
+  cursor: pointer;
+}
