@@ -9,7 +9,6 @@ import { HomePageComponent } from './components/home-page/home-page.component';
 import { MyRouteRoutes } from './my-route.routing';
 import { FormsModule } from '@angular/forms';
 import { CarouselComponent } from './components/home-page/carousel/carousel.component';
-import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
   declarations: [
