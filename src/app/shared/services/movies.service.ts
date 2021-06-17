@@ -8,9 +8,8 @@ import { Movie } from '../models/movie.model';
   providedIn: 'root',
 })
 export class MoviesService {
-  moviesChanged  = new Subject<Movie[]>();
-  movies = this.moviesChanged.asObservable();
-  
+  moviesChanged = new Subject<Movie[]>();
+  movies: Movie[] = [];
 
   constructor(private http: HttpClient) {}
 
@@ -27,8 +26,25 @@ export class MoviesService {
               movies.push(response[key]);
             }
           }
-         this.moviesChanged.next(movies);;
+          this.moviesChanged.next(movies);
         })
       );
+  }
+
+  addNewMovie(movie: Movie) {
+    this.getMovies().subscribe();
+    this.moviesChanged.subscribe((res) => {
+      this.movies = res;
+      this.movies.push(movie);
+
+      this.http
+      .put(
+        'https://angular-project-e49e1-default-rtdb.firebaseio.com/movies.json',
+        this.movies
+      )
+      .subscribe(response => {
+        console.log(response);
+      });
+    }); 
   }
 }

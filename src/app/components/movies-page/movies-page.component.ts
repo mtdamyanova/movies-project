@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Movie } from 'src/app/shared/models/movie.model';
 import { MoviesService } from 'src/app/shared/services/movies.service';
@@ -8,7 +8,7 @@ import { MoviesService } from 'src/app/shared/services/movies.service';
   templateUrl: './movies-page.component.html',
   styleUrls: ['./movies-page.component.css'],
 })
-export class MoviesPageComponent implements OnInit {
+export class MoviesPageComponent implements OnInit, OnDestroy {
   movies: Movie[] = [];
   subscription: Subscription;
 
@@ -16,9 +16,13 @@ export class MoviesPageComponent implements OnInit {
 
   ngOnInit() {
     this.movieService.getMovies().subscribe();
-    this.movieService.moviesChanged.subscribe((res) => {
+    this.subscription = this.movieService.moviesChanged.subscribe((res) => {
       this.movies = res;
       console.log(this.movies);
     });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }
