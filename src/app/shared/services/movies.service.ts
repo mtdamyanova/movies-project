@@ -1,5 +1,4 @@
 import { HttpClient } from '@angular/common/http';
-import { stringify } from '@angular/compiler/src/util';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -28,18 +27,16 @@ export class MoviesService {
               movies.push(response[key]);
             }
           }
-          this.moviesChanged.next(movies);
+          this.moviesChanged.next(movies);;
         })
       );
   }
-
-  getMovie(title: string) : Observable<any> {
+  getMovie(title: string): Observable<any> {
     return this.http.get(`https://angular-project-e49e1-default-rtdb.firebaseio.com/movies/${title}.json`)
       .pipe(
         tap(
           data => this.selectedMovie.next(data)
+        )
       )
-    )
-
   }
 }

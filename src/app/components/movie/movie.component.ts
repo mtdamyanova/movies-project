@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+// import { MoviesService } from 'src/app/all-movies/movies.service';
 import { Movie } from 'src/app/shared/models/movie.model';
 import { MoviesService } from 'src/app/shared/services/movies.service';
 
