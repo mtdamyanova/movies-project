@@ -37,14 +37,18 @@ export class MoviesService {
       this.movies = res;
       this.movies.push(movie);
 
-      this.http
-      .put(
-        'https://angular-project-e49e1-default-rtdb.firebaseio.com/movies.json',
-        this.movies
-      )
-      .subscribe(response => {
-        console.log(response);
-      });
+      // this.http
+      // .put(
+      //   'https://angular-project-e49e1-default-rtdb.firebaseio.com/movies.json',
+      //   this.movies
+      // )
+      // .subscribe(response => {
+      //   console.log(response);
+      // });
     }); 
+  }
+
+  getMovie(index: number) {
+    return this.movies[index];
   }
 }

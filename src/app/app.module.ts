@@ -20,9 +20,15 @@ import { AddNewMovieComponent } from './components/add-new-movie/add-new-movie.c
     HomePageComponent,
     CarouselComponent,
     MovieComponent,
-    AddNewMovieComponent
+    AddNewMovieComponent,
   ],
-  imports: [BrowserModule, FormsModule, HttpClientModule, MyRouteRoutes, ReactiveFormsModule],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpClientModule,
+    MyRouteRoutes,
+    ReactiveFormsModule
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
