@@ -8,13 +8,19 @@ import { MoviesService } from 'src/app/shared/services/movies.service';
   styleUrls: ['./movie.component.css'],
 })
 export class MovieComponent implements OnInit {
-  movies: Movie[];
+  movies: any;
   constructor(private moviesService: MoviesService) {}
 
   ngOnInit(): void {
     this.moviesService.getMovies().subscribe();
-    this.moviesService.moviesChanged.subscribe(
-      (movies) => (this.movies = movies)
-    );
+    this.moviesService.moviesChanged.subscribe((movies) => {
+      const moviesArr: Movie[] = [];
+      for (let key in movies) {
+        if (movies.hasOwnProperty(key)) {
+          moviesArr.push(movies[key]);
+        }
+      }
+      this.movies = moviesArr;
+    });
   }
 }

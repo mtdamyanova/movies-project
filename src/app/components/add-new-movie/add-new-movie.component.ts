@@ -16,19 +16,17 @@ export class AddNewMovieComponent implements OnInit {
   constructor(private moviesService: MoviesService,  private route: ActivatedRoute,) {}
 
   ngOnInit() {
-
     this.route.params.subscribe((params: Params) => {
       this.id = +params['id'];
       this.editMode = params['id'] != null;
+
       this.initForm();
     });
+
   }
 
   onSubmit() {
-    console.log(this.addMovieForm.value)
     this.moviesService.addNewMovie(this.addMovieForm.value);
-    console.log(this.addMovieForm.value)
-
     this.addMovieForm.reset();
   }
 
