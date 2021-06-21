@@ -1,10 +1,4 @@
-
-import { Subscription } from 'rxjs';
-import { Component, Input, OnInit } from '@angular/core';
-// import { MoviesService } from 'src/app/all-movies/movies.service';
-import { Movie } from 'src/app/shared/models/movie.model';
-import { DataStorageService } from 'src/app/shared/services/data-store.service';
-import { MoviesService } from 'src/app/shared/services/movies.service';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-movie',
@@ -12,44 +6,18 @@ import { MoviesService } from 'src/app/shared/services/movies.service';
   styleUrls: ['./movie.component.css'],
 })
 export class MovieComponent implements OnInit {
-  movies: any;
-  subscription: Subscription;
+  @Input() movies: any;
+  @Output() onAscendingSort = new EventEmitter();
+  @Output() onDescendingSort = new EventEmitter();
 
-  constructor(
-    private moviesService: MoviesService,
-    private dataStorageService: DataStorageService
-  ) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    this.subscription = this.moviesService.moviesChanged.subscribe(
-      (movies: any) => {
-        this.movies = movies;
-      }
+  ngOnInit(): void {}
 
-    );
-    this.movies = this.moviesService.getMovies();
-
-    const moviesArr: Movie[] = [];
-    for (let key in this.movies) {
-      if (this.movies.hasOwnProperty(key)) {
-        moviesArr.push(this.movies[key]);
-      }
-    }
-    this.movies = moviesArr;
-  }
   ascendingSort(prop: string) {
-    if (prop === 'year') {
-      this.movies.sort((a, b) => a[prop].slice(a[prop].lastIndexOf('-')) > b[prop].slice(b[prop].lastIndexOf('-')) ? -1 : 1);
-    } else {
-      this.movies.sort((a, b) => a[prop].toLowerCase() > b[prop].toLowerCase() ? -1 : 1)
-    }
+    this.onAscendingSort.emit(prop);
   }
   descendingSort(prop: string) {
-    if (prop === 'year') {
-      this.movies.sort((a, b) => a[prop].slice(a[prop].lastIndexOf('-')) > b[prop].slice(b[prop].lastIndexOf('-')) ? 1 : -1);
-    } else {
-      this.movies.sort((a, b) => a[prop].toLowerCase() > b[prop].toLowerCase() ? 1 : -1)
-    }
+    this.onDescendingSort.emit(prop);
   }
-
 }
