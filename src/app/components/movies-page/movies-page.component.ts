@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Movie } from 'src/app/shared/models/movie.model';
+import { DataStorageService } from 'src/app/shared/services/data-store.service';
 import { MoviesService } from 'src/app/shared/services/movies.service';
 
 @Component({
@@ -12,7 +13,7 @@ export class MoviesPageComponent implements OnInit, OnDestroy {
   movies: any;
   subscription: Subscription;
 
-  constructor(private movieService: MoviesService) {}
+  constructor() {}
 
   ngOnInit() {
     // this.movieService.getMovies()

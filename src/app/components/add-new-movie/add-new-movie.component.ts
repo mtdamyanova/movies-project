@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
+import { DataStorageService } from 'src/app/shared/services/data-store.service';
 import { MoviesService } from 'src/app/shared/services/movies.service';
 
 @Component({
@@ -10,23 +11,26 @@ import { MoviesService } from 'src/app/shared/services/movies.service';
 })
 export class AddNewMovieComponent implements OnInit {
   addMovieForm: FormGroup;
-  id: number;
+  title: string;
   editMode = false;
 
-  constructor(private moviesService: MoviesService,  private route: ActivatedRoute,) {}
+  constructor(
+    private moviesService: MoviesService,
+    private dataStorageService: DataStorageService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
-    this.route.params.subscribe((params: Params) => {
-      this.id = +params['id'];
-      this.editMode = params['id'] != null;
+     this.route.params.subscribe((params: Params) => {
+      this.title = params['title'];
+      this.editMode = params['title'] != null;
 
       this.initForm();
     });
-
   }
 
   onSubmit() {
-    this.moviesService.addNewMovie(this.addMovieForm.value);
+    this.dataStorageService.addNewMovie(this.addMovieForm.value);
     this.addMovieForm.reset();
   }
 
@@ -35,27 +39,28 @@ export class AddNewMovieComponent implements OnInit {
   }
 
   private initForm() {
-    let title = '';
-    let director = '';
-    let year = '';
-    let img = '';
-    let description = '';
+    let movieTitle = 'Hello';
+    let movieDirector = '';
+    let movieYear = '';
+    let movieImg = '';
+    let movieDescription = '';
 
     if (this.editMode) {
-      const movie = this.moviesService.getMovie(this.id);
-      title = movie.title;
-      director = movie.director;
-      year = movie.year;
-      img = movie.img;
-      description = movie.description;
+      const movie = this.moviesService.getMovie(this.title);
+
+      movieTitle = movie.title;
+      movieDirector = movie.director;
+      movieYear = movie.year;
+      movieImg = movie.img;
+      movieDescription = movie.description;
     }
 
     this.addMovieForm = new FormGroup({
-      title: new FormControl(null, [Validators.required]),
-      director: new FormControl(null, [Validators.required]),
-      year: new FormControl(null, [Validators.required]),
-      img: new FormControl(null, [Validators.required]),
-      description: new FormControl(null, [Validators.required]),
+      title: new FormControl(movieTitle, [Validators.required]),
+      director: new FormControl(movieDirector, [Validators.required]),
+      year: new FormControl(movieYear, [Validators.required]),
+      img: new FormControl(movieImg, [Validators.required]),
+      description: new FormControl(movieDescription, [Validators.required]),
     });
   }
 }

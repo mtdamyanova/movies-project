@@ -1,5 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Movie } from 'src/app/shared/models/movie.model';
+import { DataStorageService } from 'src/app/shared/services/data-store.service';
 import { MoviesService } from 'src/app/shared/services/movies.service';
 
 @Component({
@@ -9,18 +11,28 @@ import { MoviesService } from 'src/app/shared/services/movies.service';
 })
 export class MovieComponent implements OnInit {
   movies: any;
-  constructor(private moviesService: MoviesService) {}
+  subscription: Subscription;
+
+  constructor(
+    private moviesService: MoviesService,
+    private dataStorageService: DataStorageService
+  ) {}
 
   ngOnInit(): void {
-    this.moviesService.getMovies().subscribe();
-    this.moviesService.moviesChanged.subscribe((movies) => {
-      const moviesArr: Movie[] = [];
-      for (let key in movies) {
-        if (movies.hasOwnProperty(key)) {
-          moviesArr.push(movies[key]);
-        }
+    this.subscription = this.moviesService.moviesChanged.subscribe(
+      (movies: any) => {
+        this.movies = movies;
       }
-      this.movies = moviesArr;
-    });
+    );
+    this.movies = this.moviesService.getMovies();
+
+    const moviesArr: Movie[] = [];
+    for (let key in this.movies) {
+      if (this.movies.hasOwnProperty(key)) {
+        moviesArr.push(this.movies[key]);
+      }
+    }
+    this.movies = moviesArr;
+    console.log(this.movies);
   }
 }
