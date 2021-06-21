@@ -10,6 +10,7 @@ import { MyRouteRoutes } from './my-route.routing';
 import { FormsModule } from '@angular/forms';
 import { CarouselComponent } from './components/home-page/carousel/carousel.component';
 import { HttpClientModule } from '@angular/common/http';
+import { SelectedMovieComponent } from './components/movies-page/selected-movie/selected-movie.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
     HomePageComponent,
     CarouselComponent,
     MovieComponent,
+    SelectedMovieComponent
   ],
   imports: [BrowserModule, FormsModule, HttpClientModule, MyRouteRoutes],
   providers: [],

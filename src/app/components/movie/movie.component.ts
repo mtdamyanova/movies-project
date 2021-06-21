@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+// import { MoviesService } from 'src/app/all-movies/movies.service';
 import { Movie } from 'src/app/shared/models/movie.model';
 import { MoviesService } from 'src/app/shared/services/movies.service';
 
@@ -8,13 +9,29 @@ import { MoviesService } from 'src/app/shared/services/movies.service';
   styleUrls: ['./movie.component.css'],
 })
 export class MovieComponent implements OnInit {
-  movies: Movie[];
-  constructor(private moviesService: MoviesService) {}
+  @Input() movies: Movie[];
+
+  constructor(private moviesService: MoviesService) { }
 
   ngOnInit(): void {
-    this.moviesService.getMovies().subscribe();
+    this.moviesService.fetchMovies().subscribe();
     this.moviesService.moviesChanged.subscribe(
       (movies) => (this.movies = movies)
     );
   }
+  ascendingSort(prop: string) {
+    if (prop === 'year') {
+      this.movies.sort((a, b) => a[prop].slice(a[prop].lastIndexOf('-')) > b[prop].slice(b[prop].lastIndexOf('-')) ? -1 : 1);
+    } else {
+      this.movies.sort((a, b) => a[prop].toLowerCase() > b[prop].toLowerCase() ? -1 : 1)
+    }
+  }
+  descendingSort(prop: string) {
+    if (prop === 'year') {
+      this.movies.sort((a, b) => a[prop].slice(a[prop].lastIndexOf('-')) > b[prop].slice(b[prop].lastIndexOf('-')) ? 1 : -1);
+    } else {
+      this.movies.sort((a, b) => a[prop].toLowerCase() > b[prop].toLowerCase() ? 1 : -1)
+    }
+  }
+
 }
