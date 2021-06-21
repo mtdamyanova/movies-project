@@ -18,4 +18,5 @@ export class CarouselComponent implements OnInit {
   ngOnInit() {
     // const carousel = document.querySelector('.carousel');
   }
+}
 

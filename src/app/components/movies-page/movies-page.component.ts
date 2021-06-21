@@ -9,22 +9,27 @@ import { MoviesService } from 'src/app/shared/services/movies.service';
   templateUrl: './movies-page.component.html',
   styleUrls: ['./movies-page.component.css'],
 })
-export class MoviesPageComponent implements OnInit, OnDestroy {
-
+export class MoviesPageComponent implements OnInit {
   movies: any;
   private subscription: Subscription;
-  constructor(private movieService: MoviesService) { }
+  constructor(private moviesService: MoviesService) {}
 
   ngOnInit() {
-    // this.movieService.fetchMovies().subscribe();
-   this.subscription=  this.movieService.movies.subscribe(data => console.log(data));
+     // this.movieService.fetchMovies().subscribe();
+    //  this.subscription=  this.movieService.movies.subscribe(data => console.log(data));
+    //  this.subscription = this.moviesService.moviesChanged.subscribe(
+    //   (movies: any) => {
+    //     this.movies = movies;
+    //   }
 
+    // );
+    // this.movies = this.moviesService.getMovies();
   }
 
-  getMovies(): Observable<Movie[]> {
-    return this.movieService.moviesChanged;
-  }
-  ngOnDestroy(){
-    this.subscription.unsubscribe()
-  }
+  // getMovies(): Observable<Movie[]> {
+  //   return this.moviesService.moviesChanged;
+  // }
+  // ngOnDestroy() {
+  //   this.subscription.unsubscribe();
+  // }
 }
