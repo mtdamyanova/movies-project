@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-carousel',
@@ -17,7 +17,5 @@ export class CarouselComponent implements OnInit {
 
   ngOnInit() {
     // const carousel = document.querySelector('.carousel');
-    
   }
 
-}

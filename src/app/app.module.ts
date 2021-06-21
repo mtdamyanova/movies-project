@@ -10,7 +10,11 @@ import { MyRouteRoutes } from './my-route.routing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CarouselComponent } from './components/home-page/carousel/carousel.component';
 import { HttpClientModule } from '@angular/common/http';
+
 import { AddNewMovieComponent } from './components/add-new-movie/add-new-movie.component';
+
+import { SelectedMovieComponent } from './components/movies-page/selected-movie/selected-movie.component';
+
 
 @NgModule({
   declarations: [
@@ -20,6 +24,7 @@ import { AddNewMovieComponent } from './components/add-new-movie/add-new-movie.c
     HomePageComponent,
     CarouselComponent,
     MovieComponent,
+    SelectedMovieComponent
     AddNewMovieComponent,
   ],
   imports: [

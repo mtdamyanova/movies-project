@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Movie } from 'src/app/shared/models/movie.model';
 import { DataStorageService } from 'src/app/shared/services/data-store.service';
 import { MoviesService } from 'src/app/shared/services/movies.service';
@@ -10,21 +10,21 @@ import { MoviesService } from 'src/app/shared/services/movies.service';
   styleUrls: ['./movies-page.component.css'],
 })
 export class MoviesPageComponent implements OnInit, OnDestroy {
-  movies: any;
-  subscription: Subscription;
 
-  constructor() {}
+  movies: any;
+  private subscription: Subscription;
+  constructor(private movieService: MoviesService) { }
 
   ngOnInit() {
-    // this.movieService.getMovies()
-    // .subscribe();
-    // this.subscription = this.movieService.moviesChanged.subscribe((res) => {
-    //   this.movies = res;
-    //   console.log(this.movies, "moviesPage");
-    // });
+    // this.movieService.fetchMovies().subscribe();
+   this.subscription=  this.movieService.movies.subscribe(data => console.log(data));
+
   }
 
-  ngOnDestroy() {
-    // this.subscription.unsubscribe();
+  getMovies(): Observable<Movie[]> {
+    return this.movieService.moviesChanged;
+  }
+  ngOnDestroy(){
+    this.subscription.unsubscribe()
   }
 }

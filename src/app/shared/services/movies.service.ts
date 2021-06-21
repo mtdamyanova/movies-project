@@ -9,7 +9,7 @@ export class MoviesService {
   moviesChanged = new Subject<any>();
   private movies: any;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   setMovies(movies: any) {
     this.movies = movies;
@@ -23,4 +23,5 @@ export class MoviesService {
   getMovie(title: string) {
     return this.movies[title];
   }
+  
 }

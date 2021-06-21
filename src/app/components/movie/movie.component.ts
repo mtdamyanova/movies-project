@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+
 import { Subscription } from 'rxjs';
+import { Component, Input, OnInit } from '@angular/core';
+// import { MoviesService } from 'src/app/all-movies/movies.service';
 import { Movie } from 'src/app/shared/models/movie.model';
 import { DataStorageService } from 'src/app/shared/services/data-store.service';
 import { MoviesService } from 'src/app/shared/services/movies.service';
@@ -23,6 +25,7 @@ export class MovieComponent implements OnInit {
       (movies: any) => {
         this.movies = movies;
       }
+
     );
     this.movies = this.moviesService.getMovies();
 
@@ -34,4 +37,19 @@ export class MovieComponent implements OnInit {
     }
     this.movies = moviesArr;
   }
+  ascendingSort(prop: string) {
+    if (prop === 'year') {
+      this.movies.sort((a, b) => a[prop].slice(a[prop].lastIndexOf('-')) > b[prop].slice(b[prop].lastIndexOf('-')) ? -1 : 1);
+    } else {
+      this.movies.sort((a, b) => a[prop].toLowerCase() > b[prop].toLowerCase() ? -1 : 1)
+    }
+  }
+  descendingSort(prop: string) {
+    if (prop === 'year') {
+      this.movies.sort((a, b) => a[prop].slice(a[prop].lastIndexOf('-')) > b[prop].slice(b[prop].lastIndexOf('-')) ? 1 : -1);
+    } else {
+      this.movies.sort((a, b) => a[prop].toLowerCase() > b[prop].toLowerCase() ? 1 : -1)
+    }
+  }
+
 }
