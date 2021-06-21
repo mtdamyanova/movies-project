@@ -47,7 +47,6 @@ export class AddNewMovieComponent implements OnInit {
 
     if (this.editMode) {
       const movie = this.moviesService.getMovie(this.title);
-
       movieTitle = movie.title;
       movieDirector = movie.director;
       movieYear = movie.year;

@@ -19,7 +19,6 @@ export class MoviesResolverService implements Resolve<any> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const movies = this.moviesService.getMovies();
-
     if (movies) {
       return this.dataStorageService.fetchMovies();
     } else {
