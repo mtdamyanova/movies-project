@@ -13,9 +13,6 @@ export class DataStorageService {
       'https://angular-project-e49e1-default-rtdb.firebaseio.com/movies.json'
     )
     .pipe(
-        // map(movies => {
-        //   return movies;
-        //   }),
         tap(movies => {
             this.moviesService.setMovies(movies);
           })

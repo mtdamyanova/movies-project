@@ -8,6 +8,7 @@
         id="title"
         formControlName="title"
         placeholder="Enter Title"
+        [attr.disabled]="editMode ? 'disabled' : null"
       />
     </div>
     <div class="mb-3">
@@ -55,7 +56,7 @@
         rows="6"
       ></textarea>
     </div>
-    <button type="submit" class="btn btn-dark" [disabled]="!addMovieForm.valid">{{editMode? "Edit" : "Add"}}</button> |
-    <button type="submit" class="btn btn-dark" (click)="onCancel()">Cancel</button>
+    <button type="submit" class="btn btn-light" [disabled]="!addMovieForm.valid">{{editMode? "Edit" : "Add"}}</button> |
+    <button type="submit" class="btn btn-light" (click)="onCancel()">Cancel</button>
   </form>
 </div>

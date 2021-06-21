@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { DataStorageService } from 'src/app/shared/services/data-store.service';
 import { MoviesService } from 'src/app/shared/services/movies.service';
 
@@ -17,11 +17,12 @@ export class AddNewMovieComponent implements OnInit {
   constructor(
     private moviesService: MoviesService,
     private dataStorageService: DataStorageService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit() {
-     this.route.params.subscribe((params: Params) => {
+    this.route.params.subscribe((params: Params) => {
       this.title = params['title'];
       this.editMode = params['title'] != null;
 
@@ -35,7 +36,13 @@ export class AddNewMovieComponent implements OnInit {
   }
 
   onCancel() {
-    this.addMovieForm.reset();
+    if (this.editMode) {
+      this.router.navigate([`../../movies/${this.title}`], {
+        relativeTo: this.route,
+      });
+    } else {
+      this.addMovieForm.reset();
+    }
   }
 
   private initForm() {

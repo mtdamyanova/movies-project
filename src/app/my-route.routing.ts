@@ -6,7 +6,7 @@ import { MoviesResolverService } from './shared/services/movies-resolver.service
 import { SelectedMovieComponent } from './components/movies-page/selected-movie/selected-movie.component';
 
 const routes: Routes = [
-  { path: '', component: HomePageComponent },
+  { path: '', component: HomePageComponent, resolve: [MoviesResolverService] },
   { path: 'movies', component: MoviesPageComponent, resolve: [MoviesResolverService]  },
   { path: 'new', component: AddNewMovieComponent },
   { path: 'movies/:title', component: SelectedMovieComponent },
