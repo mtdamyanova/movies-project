@@ -9,6 +9,7 @@ export class MovieComponent implements OnInit {
   @Input() movies: any;
   @Output() onAscendingSort = new EventEmitter();
   @Output() onDescendingSort = new EventEmitter();
+  @Output() onDelete = new EventEmitter();
 
   constructor() {}
 
@@ -19,5 +20,8 @@ export class MovieComponent implements OnInit {
   }
   descendingSort(prop: string) {
     this.onDescendingSort.emit(prop);
+  }
+  deleteMovie(prop: string) {
+    this.onDelete.emit(prop);
   }
 }

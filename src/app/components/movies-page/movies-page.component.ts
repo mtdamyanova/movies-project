@@ -53,4 +53,8 @@ export class MoviesPageComponent implements OnInit {
       );
     }
   }
+
+  deleteMovie(prop: string) {
+    // this.deleteMovie();
+  }
 }
