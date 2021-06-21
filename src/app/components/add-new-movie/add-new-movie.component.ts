@@ -39,7 +39,7 @@ export class AddNewMovieComponent implements OnInit {
   }
 
   private initForm() {
-    let movieTitle = 'Hello';
+    let movieTitle = '';
     let movieDirector = '';
     let movieYear = '';
     let movieImg = '';

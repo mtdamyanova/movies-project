@@ -33,6 +33,5 @@ export class MovieComponent implements OnInit {
       }
     }
     this.movies = moviesArr;
-    console.log(this.movies);
   }
 }
