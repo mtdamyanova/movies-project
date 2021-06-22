@@ -26,8 +26,19 @@ export class MoviesService {
     return this.movies[title];
   }
 
-  updateMovie(title: string, newMovie: any) {
+  addMovie(title: string, newMovie: any) {
+    console.log(this.movies);
     this.movies[title] = newMovie;
     this.moviesChanged.next(this.movies);
+  }
+
+  updateMovie(title: string, updatedMovie: any) {
+    this.movies[title] = updatedMovie;
+    this.moviesChanged.next(this.movies);
+  }
+
+  deleteMovie(title: string) {
+   delete this.movies[title];
+   this.moviesChanged.next(this.movies);
   }
 }

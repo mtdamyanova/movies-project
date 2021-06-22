@@ -26,4 +26,11 @@ export class DataStorageService {
         movie
       ).subscribe();
   }
+
+  deleteMovie(title: string) {
+    this.http
+      .delete(
+        `https://angular-project-e49e1-default-rtdb.firebaseio.com/movies/${title}.json`
+      ).subscribe();
+  }
 }

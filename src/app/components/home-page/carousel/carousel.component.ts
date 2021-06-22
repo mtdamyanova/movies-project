@@ -16,11 +16,6 @@ export class CarouselComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.moviesService.moviesChanged.subscribe(
-    //   (movies: any) => {
-    //     this.movies = movies;
-    //   }
-    // );
     this.movies = this.moviesService.getMovies();
 
     const moviesArr: Movie[] = [];

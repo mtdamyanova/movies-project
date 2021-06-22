@@ -32,7 +32,20 @@ export class AddNewMovieComponent implements OnInit {
 
   onSubmit() {
     this.dataStorageService.addNewMovie(this.addMovieForm.value);
-    this.addMovieForm.reset();
+    this.moviesService.addMovie(
+      this.addMovieForm.value.title,
+      this.addMovieForm.value
+    );
+    // this.addMovieForm.reset();
+    if (this.editMode) {
+      this.router.navigate([`../../movies/${this.title}`], {
+        relativeTo: this.route,
+      });
+    } else {
+      this.router.navigate([`../movies`], {
+        relativeTo: this.route,
+      });
+    }
   }
 
   onCancel() {

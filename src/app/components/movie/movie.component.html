@@ -25,7 +25,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let movie of movies; index as i">
+    <tr *ngFor="let movie of movies; index as i ">
       <th scope="row">{{ i + 1 }}</th>
       <td>
         <strong>{{ movie.title }}</strong>
@@ -45,6 +45,7 @@
         <button
           type="button"
           class="btn btn-danger"
+          (click)="onDelete(movie.title)"
         >
           Delete
         </button>

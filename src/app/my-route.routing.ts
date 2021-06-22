@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: '', component: HomePageComponent, resolve: [MoviesResolverService] },
   { path: 'movies', component: MoviesPageComponent, resolve: [MoviesResolverService]  },
   { path: 'new', component: AddNewMovieComponent },
-  { path: 'movies/:title', component: SelectedMovieComponent },
+  { path: 'movies/:title', component: SelectedMovieComponent, resolve: [MoviesResolverService] },
   { path: ':title/edit', component: AddNewMovieComponent, resolve: [MoviesResolverService] },
   ];
 

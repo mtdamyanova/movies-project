@@ -1,6 +1,5 @@
 import { Subscription } from 'rxjs';
-import { Component, Input, OnInit } from '@angular/core';
-// import { MoviesService } from 'src/app/all-movies/movies.service';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Movie } from 'src/app/shared/models/movie.model';
 import { DataStorageService } from 'src/app/shared/services/data-store.service';
 import { MoviesService } from 'src/app/shared/services/movies.service';
@@ -20,13 +19,16 @@ export class MovieComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.subscription = this.moviesService.moviesChanged.subscribe(
-      (movies: any) => {
-        this.movies = movies;
-      }
-    );
     this.movies = this.moviesService.getMovies();
+    console.log(this.movies);
+    this.getMoviesArr();
+   this.moviesService.moviesChanged.subscribe((movies: any) => {
+      this.movies = movies;
+    });
+    console.log(this.movies);
+  }
 
+  getMoviesArr() {
     const moviesArr: Movie[] = [];
     for (let key in this.movies) {
       if (this.movies.hasOwnProperty(key)) {
@@ -35,6 +37,7 @@ export class MovieComponent implements OnInit {
     }
     this.movies = moviesArr;
   }
+
   ascendingSort(prop: string) {
     if (prop === 'year') {
       this.movies.sort((a, b) =>
@@ -49,6 +52,7 @@ export class MovieComponent implements OnInit {
       );
     }
   }
+
   descendingSort(prop: string) {
     if (prop === 'year') {
       this.movies.sort((a, b) =>
@@ -62,5 +66,11 @@ export class MovieComponent implements OnInit {
         a[prop].toLowerCase() > b[prop].toLowerCase() ? 1 : -1
       );
     }
+  }
+
+  onDelete(title) {
+    this.moviesService.deleteMovie(title);
+    this.dataStorageService.deleteMovie(title);
+    this.getMoviesArr();
   }
 }
