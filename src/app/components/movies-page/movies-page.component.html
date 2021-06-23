@@ -1,1 +1,98 @@
-<app-movie></app-movie>
+<div class="icon-container">
+  <img
+    class="icon"
+    [src]="
+      isTableView
+        ? 'https://firebasestorage.googleapis.com/v0/b/angular-project-e49e1.appspot.com/o/425-4251166_white-bars-png.png?alt=media&token=99336513-b273-4e6d-a996-b3640fc93db8'
+        : 'https://firebasestorage.googleapis.com/v0/b/angular-project-e49e1.appspot.com/o/pngkey.com-grid-png-351346%20-%20Copy.png?alt=media&token=ff2ac574-0209-4b73-b522-959bfb16b431'
+    "
+    (click)="onChangeView()"
+  />
+</div>
+<div *ngIf="isTableView; else cardView">
+  <table
+    class="
+      table table-bordered table-striped table-dark table-hover
+      align-middle
+    "
+  >
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col" routerLink>#</th>
+        <th scope="col" class="arrows-container">
+          <span>Title</span>
+          <span>
+            <span class="arrows" (click)="ascendingSort('title')">&#8593;</span>
+            <span class="arrows" (click)="descendingSort('title')"
+              >&#8595;</span
+            >
+          </span>
+        </th>
+        <th scope="col" class="description">Description</th>
+        <th scope="col">Director</th>
+        <th scope="col" class="arrows-container">
+          <span>Year</span>
+          <span>
+            <span class="arrows" (click)="ascendingSort('year')">&#8593;</span>
+            <span class="arrows" (click)="descendingSort('year')">&#8595;</span>
+          </span>
+        </th>
+        <th scope="col">Poster</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let movie of movies; index as i">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>
+          <strong>{{ movie.title }}</strong>
+        </td>
+        <td>{{ movie.description }}</td>
+        <td>{{ movie.director }}</td>
+        <td>{{ movie.year | date: "dd MMM yyyy" }}</td>
+        <td>
+          <img
+            [src]="movie.img"
+            class="mr-2"
+            style="width: 200px"
+            [routerLink]="['/movies', movie.title]"
+          />
+        </td>
+        <td>
+          <button
+            type="button"
+            class="btn btn-danger"
+            (click)="onDelete(movie.title)"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #cardView>
+  <div class="card-container">
+    <div
+      class="card"
+      style="width: 18rem"
+      *ngFor="let movie of movies; index as i"
+    >
+      <img
+        [src]="movie.img"
+        class="card-img-top"
+        [routerLink]="['/movies', movie.title]"
+      />
+      <div class="card-body">
+        <h5 class="card-title">{{ movie.title }}</h5>
+        <p class="card-text">{{ movie.year | date: "dd MMM yyyy" }}</p>
+        <p class="card-text">{{ movie.description }}</p>
+        <button type="button" class="btn btn-danger" (click)="onDelete(movie.title)"
+          >Delete</button
+        >
+      </div>
+    </div>
+  </div>
+</ng-template>
+<router-outlet></router-outlet>

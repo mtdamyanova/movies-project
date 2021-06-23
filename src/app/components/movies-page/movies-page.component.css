@@ -1,0 +1,36 @@
+.description {
+    width: 30%;
+  }
+  .arrows {
+    color: white;
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  
+  .arrows-container{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .icon-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 30px;
+    margin-bottom: 15px;
+  }
+
+  .icon {
+    width: 30px;
+  }
+
+  .card-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .card {
+    margin: 13px;
+    background-color: rgb(53, 53, 53);
+    color: white;
+  }
