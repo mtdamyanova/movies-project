@@ -5,14 +5,13 @@ import { MoviesService } from 'src/app/shared/services/movies.service';
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.css']
+  styleUrls: ['./home-page.component.css'],
 })
-export class HomePageComponent{
+export class HomePageComponent {
   movies: any;
+  directors: any;
 
-  constructor(
-    private moviesService: MoviesService
-  ) {}
+  constructor(private moviesService: MoviesService) {}
 
   ngOnInit(): void {
     this.movies = this.moviesService.getMovies();
@@ -24,6 +23,14 @@ export class HomePageComponent{
       }
     }
     this.movies = moviesArr;
+
+    this.directors = this.getDirectors();
+    console.log(this.directors);
   }
-  
+
+  getDirectors() {
+    let directors = this.movies.map((movie) => movie.director);
+    let mySet = new Set(directors);
+    return Array.from(mySet);
+  }
 }

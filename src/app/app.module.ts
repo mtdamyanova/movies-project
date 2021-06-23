@@ -14,6 +14,7 @@ import { SelectedMovieComponent } from './components/movies-page/selected-movie/
 import { AddNewMovieComponent } from './components/add-new-movie/add-new-movie.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { IvyCarouselModule } from 'angular-responsive-carousel';
+import { MovieByDirectorComponent } from './components/movie-by-director/movie-by-director.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { IvyCarouselModule } from 'angular-responsive-carousel';
     SelectedMovieComponent,
     AddNewMovieComponent,
     CarouselComponent,
+    MovieByDirectorComponent
   ],
   imports: [
     BrowserModule,

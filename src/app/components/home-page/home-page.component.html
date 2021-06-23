@@ -3,12 +3,12 @@
 <div class="director-container">
   <h4>Movies Directors:</h4>
   <button
-    *ngFor="let movie of movies"
+    *ngFor="let director of directors"
     class="btn btn-light"
     type="button"
-    [routerLink]="['/movies', movie.director]"
+    [routerLink]="[director]"
   >
-    {{ movie.director }}
+    {{ director }}
   </button>
 </div>
 
