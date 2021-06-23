@@ -1,1 +1,15 @@
 <app-carousel></app-carousel>
+
+<div class="director-container">
+  <h4>Movies Directors:</h4>
+  <button
+    *ngFor="let movie of movies"
+    class="btn btn-light"
+    type="button"
+    [routerLink]="['/movies', movie.director]"
+  >
+    {{ movie.director }}
+  </button>
+</div>
+
+<router-outlet></router-outlet>
