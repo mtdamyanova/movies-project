@@ -21,7 +21,7 @@ export class AddNewMovieComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-     this.route.params.subscribe((params: Params) => {
+    this.route.params.subscribe((params: Params) => {
       this.title = params['title'];
       this.editMode = params['title'] != null;
 
@@ -30,7 +30,9 @@ export class AddNewMovieComponent implements OnInit {
   }
 
   onSubmit() {
-    this.dataStorageService.addNewMovie(this.addMovieForm.value);
+    // this.dataStorageService.addNewMovie(this.addMovieForm.value);
+    console.log(this.addMovieForm.value, 'formata');
+    this.moviesService.addMovie(this.addMovieForm.value);
     this.addMovieForm.reset();
   }
 

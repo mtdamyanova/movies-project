@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Movie } from 'src/app/shared/models/movie.model';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { MoviesService } from 'src/app/shared/services/movies.service';
 
 @Component({
@@ -7,21 +8,31 @@ import { MoviesService } from 'src/app/shared/services/movies.service';
   templateUrl: './movies-page.component.html',
   styleUrls: ['./movies-page.component.css'],
 })
-export class MoviesPageComponent implements OnInit {
+export class MoviesPageComponent implements OnInit, OnDestroy {
   movies: any;
-  constructor(private moviesService: MoviesService) {}
+  subscription: Subscription;
+
+  constructor(private ms: MoviesService) {}
 
   ngOnInit() {
-    const moviesObj = this.moviesService.getMovies();
+    this.subscription = this.ms
+      .getMovies()
+      .pipe(
+        map((data) => {
+          const resultArr = [];
+          for (let prop in data) {
+            resultArr.push(data[prop]);
+          }
+          return (data = resultArr);
+        })
+      )
+      .subscribe((res) => {
+        this.movies = res;
+      });
+  }
 
-    const moviesArr: Movie[] = [];
-    for (let key in moviesObj) {
-      if (moviesObj.hasOwnProperty(key)) {
-        moviesArr.push(moviesObj[key]);
-      }
-    }
-    this.movies = moviesArr;
-    console.log(this.movies);
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   ascendingSort(prop: string) {

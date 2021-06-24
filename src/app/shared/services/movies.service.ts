@@ -1,27 +1,54 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { Movie } from '../models/movie.model';
+import { DataStorageService } from './data-store.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MoviesService {
-  moviesChanged = new Subject<any>();
+  moviesChanged = new BehaviorSubject<any>(null);
   private movies: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private apiService: DataStorageService) {
+    this.setMovies();
+  }
 
-  setMovies(movies: any) {
-    this.movies = movies;
-    this.moviesChanged.next(this.movies);
+  setMovies() {
+    this.apiService.fetchMovies().subscribe((data) => {
+      this.movies = data;
+      this.moviesChanged.next(data);
+    });
   }
 
   getMovies() {
-    return this.movies;
+    // return this.movies;
+    return this.moviesChanged.asObservable();
+  }
+
+  addMovie(movie: Movie) {
+    this.apiService
+      .addNewMovie(movie)
+      .pipe(
+        tap(() => {
+          const obj = {};
+          obj[movie.title] = movie;
+          this.moviesChanged.next({
+            ...this.movies,
+            ...obj,
+          });
+        })
+      )
+      .subscribe();
   }
 
   getMovie(title: string) {
     return this.movies[title];
   }
-  
+
+  deleteMovie(title: string) {
+    //.....
+  }
 }

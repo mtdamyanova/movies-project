@@ -1,3 +1,4 @@
+import { KeyValue } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
@@ -14,6 +15,20 @@ export class MovieComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  valueAscOrder = (
+    a: KeyValue<number, string>,
+    b: KeyValue<number, string>
+  ): number => {
+    return a.value.localeCompare(b.value);
+  };
+
+  valueDescOrder = (
+    a: KeyValue<number, string>,
+    b: KeyValue<number, string>
+  ): number => {
+    return a.key > b.key ? -1 : b.key > a.key ? 1 : 0;
+  };
 
   ascendingSort(prop: string) {
     this.onAscendingSort.emit(prop);
