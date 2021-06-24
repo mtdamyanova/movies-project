@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
-import { DataStorageService } from 'src/app/shared/services/data-store.service';
+import { DataStorageService } from 'src/app/shared/services/api-movies.service';
 import { MoviesService } from 'src/app/shared/services/movies.service';
 
 @Component({
@@ -16,7 +16,6 @@ export class AddNewMovieComponent implements OnInit {
 
   constructor(
     private moviesService: MoviesService,
-    private dataStorageService: DataStorageService,
     private route: ActivatedRoute
   ) {}
 
@@ -30,8 +29,6 @@ export class AddNewMovieComponent implements OnInit {
   }
 
   onSubmit() {
-    // this.dataStorageService.addNewMovie(this.addMovieForm.value);
-    console.log(this.addMovieForm.value, 'formata');
     this.moviesService.addMovie(this.addMovieForm.value);
     this.addMovieForm.reset();
   }

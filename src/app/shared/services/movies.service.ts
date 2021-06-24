@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Movie } from '../models/movie.model';
-import { DataStorageService } from './data-store.service';
+import { DataStorageService } from './api-movies.service';
 
 @Injectable({
   providedIn: 'root',
@@ -49,6 +49,9 @@ export class MoviesService {
   }
 
   deleteMovie(title: string) {
-    //.....
+    this.apiService.deleteMovie(title).subscribe(() => {
+      delete this.movies[title];
+      this.moviesChanged.next(this.movies);
+    });
   }
 }

@@ -66,6 +66,6 @@ export class MoviesPageComponent implements OnInit, OnDestroy {
   }
 
   deleteMovie(prop: string) {
-    // this.deleteMovie();
+    this.ms.deleteMovie(prop);
   }
 }
