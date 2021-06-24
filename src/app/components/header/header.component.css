@@ -14,3 +14,9 @@
 img {
   width: 40px;
 }
+
+.login {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 50px;
+}

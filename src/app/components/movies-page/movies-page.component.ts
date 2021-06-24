@@ -1,8 +1,8 @@
 import { Subscription } from 'rxjs';
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { Movie } from 'src/app/shared/models/movie.model';
+import { Component, OnInit } from '@angular/core';
 import { DataStorageService } from 'src/app/shared/services/data-store.service';
 import { MoviesService } from 'src/app/shared/services/movies.service';
+import { getMoviesArr } from 'src/app/common/utils';
 
 @Component({
   selector: 'app-movie',
@@ -22,22 +22,12 @@ export class MoviesPageComponent implements OnInit {
   ngOnInit(): void {
     this.movies = this.moviesService.getMovies();
     console.log(this.movies);
-    this.getMoviesArr();
+    this.movies = getMoviesArr(this.movies);
    this.moviesService.moviesChanged.subscribe((movies: any) => {
       this.movies = movies;
     });
     console.log(this.movies);
     console.log(this.isTableView);
-  }
-
-  getMoviesArr() {
-    const moviesArr: Movie[] = [];
-    for (let key in this.movies) {
-      if (this.movies.hasOwnProperty(key)) {
-        moviesArr.push(this.movies[key]);
-      }
-    }
-    this.movies = moviesArr;
   }
 
   ascendingSort(prop: string) {
@@ -73,7 +63,7 @@ export class MoviesPageComponent implements OnInit {
   onDelete(title) {
     this.moviesService.deleteMovie(title);
     this.dataStorageService.deleteMovie(title);
-    this.getMoviesArr();
+    this.movies = getMoviesArr(this.movies);
   }
 
   onChangeView() {

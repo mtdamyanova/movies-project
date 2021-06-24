@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { MoviesService } from './movies.service';
 
 @Injectable({ providedIn: 'root' })
@@ -14,6 +14,7 @@ export class DataStorageService {
     )
     .pipe(
         tap(movies => {
+          console.log(movies);
             this.moviesService.setMovies(movies);
           })
     );
