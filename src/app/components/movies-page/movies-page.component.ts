@@ -1,6 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject, Subscription } from 'rxjs';
+import { map, takeUntil } from 'rxjs/operators';
 import { MoviesService } from 'src/app/shared/services/movies.service';
 
 @Component({
@@ -8,34 +8,26 @@ import { MoviesService } from 'src/app/shared/services/movies.service';
   templateUrl: './movies-page.component.html',
   styleUrls: ['./movies-page.component.css'],
 })
-export class MoviesPageComponent implements OnInit, OnDestroy {
-  movies: any;
-  subscription: Subscription;
+export class MoviesPageComponent implements OnInit, OnDestroy, AfterViewInit {
+  public movies: any;
+  private destroy$ = new Subject();
 
-  constructor(private ms: MoviesService) {}
+  constructor(private moviesService: MoviesService) {}
 
-  ngOnInit() {
-    this.subscription = this.ms
-      .getMovies()
-      .pipe(
-        map((data) => {
-          const resultArr = [];
-          for (let prop in data) {
-            resultArr.push(data[prop]);
-          }
-          return (data = resultArr);
-        })
-      )
+  ngOnInit(): void {
+    this.moviesService.moviesArray
+      .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         this.movies = res;
       });
+    console.log(this.movies, 'v parent componenta');
   }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
+  ngAfterViewInit() {
+    console.log(this.movies, 'vyv view init');
   }
 
   ascendingSort(prop: string) {
+    // TODO Use Lodash and Momentjs
     if (prop === 'year') {
       this.movies.sort((a, b) =>
         a[prop].slice(a[prop].lastIndexOf('-')) >
@@ -66,6 +58,11 @@ export class MoviesPageComponent implements OnInit, OnDestroy {
   }
 
   deleteMovie(prop: string) {
-    this.ms.deleteMovie(prop);
+    this.moviesService.deleteMovie(prop);
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

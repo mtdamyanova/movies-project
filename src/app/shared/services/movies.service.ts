@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 import { Movie } from '../models/movie.model';
 import { DataStorageService } from './api-movies.service';
 
@@ -9,49 +9,54 @@ import { DataStorageService } from './api-movies.service';
   providedIn: 'root',
 })
 export class MoviesService {
-  moviesChanged = new BehaviorSubject<any>(null);
-  private movies: any;
+  private _movies$ = new BehaviorSubject<any>(null);
+  public readonly movies = this._movies$.asObservable();
+  public readonly moviesArray = this._movies$
+    .asObservable()
+    .pipe(map((movies) => this.getMoviesAsArray(movies)));
 
   constructor(private apiService: DataStorageService) {
-    this.setMovies();
+    this.getMovies();
   }
 
-  setMovies() {
+  public getMovies() {
     this.apiService.fetchMovies().subscribe((data) => {
-      this.movies = data;
-      this.moviesChanged.next(data);
+      this._movies$.next(data);
+      console.log(this._movies$, 'subject-a');
     });
   }
 
-  getMovies() {
-    // return this.movies;
-    return this.moviesChanged.asObservable();
+  public addMovie(movie: Movie): void {
+    console.log(this.movies, 'movies BEFORE adding the new one');
+
+    this.apiService.addNewMovie(movie).subscribe((res: Movie) => {
+      const obj = {};
+      obj[res.title] = res;
+      this._movies$.next({
+        ...this.movies,
+        ...obj,
+      });
+      console.log(this.movies, 'movies AFTER adding the new one');
+    });
   }
 
-  addMovie(movie: Movie) {
-    this.apiService
-      .addNewMovie(movie)
-      .pipe(
-        tap(() => {
-          const obj = {};
-          obj[movie.title] = movie;
-          this.moviesChanged.next({
-            ...this.movies,
-            ...obj,
-          });
-        })
-      )
-      .subscribe();
-  }
-
-  getMovie(title: string) {
+  public getMovie(title: string): Movie {
     return this.movies[title];
   }
 
-  deleteMovie(title: string) {
+  public deleteMovie(title: string): void {
     this.apiService.deleteMovie(title).subscribe(() => {
-      delete this.movies[title];
-      this.moviesChanged.next(this.movies);
+      const currentMovies = this._movies$.value;
+      delete currentMovies[title];
+      this._movies$.next(currentMovies);
     });
+  }
+
+  private getMoviesAsArray(movies) {
+    const resultArr = [];
+    for (let prop in movies) {
+      resultArr.push(movies[prop]);
+    }
+    return resultArr;
   }
 }
