@@ -61,8 +61,8 @@ export class MoviesPageComponent implements OnInit {
   }
 
   onDelete(title) {
-    this.moviesService.deleteMovie(title);
     this.dataStorageService.deleteMovie(title);
+    this.moviesService.deleteMovie(title);
     this.movies = getMoviesArr(this.movies);
   }
 

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { DataStorageService } from './data-store.service';
 
 @Injectable({
   providedIn: 'root',
@@ -38,6 +39,7 @@ export class MoviesService {
   }
 
   deleteMovie(title: string) {
+    
    delete this.movies[title];
    this.moviesChanged.next(this.movies);
   }
