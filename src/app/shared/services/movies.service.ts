@@ -7,6 +7,7 @@ import { Subject } from 'rxjs';
 })
 export class MoviesService {
   moviesChanged = new Subject<any>();
+  theMovies = this.moviesChanged.asObservable();
   private movies: any;
 
   constructor(private http: HttpClient) { }
