@@ -8,6 +8,7 @@
         id="title"
         formControlName="title"
         placeholder="Enter Title"
+        [attr.disabled]="editMode ? 'disabled' : null"
       />
     </div>
     <div class="mb-3">

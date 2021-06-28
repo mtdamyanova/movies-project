@@ -43,6 +43,7 @@ export class MoviesPageComponent implements OnInit, OnDestroy {
   deleteMovie(prop: string) {
     this.moviesService.deleteMovie(prop);
   }
+  
 
   ngOnDestroy() {
     this.destroy$.next();

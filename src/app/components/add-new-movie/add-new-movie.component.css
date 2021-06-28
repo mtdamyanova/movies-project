@@ -1,0 +1,16 @@
+label {
+    color: white;
+}
+
+.container {
+width: 60%;
+border: 1px solid gray;
+margin: 15px auto;
+padding: 15px;
+border-radius: 5px;
+background-color: rgb(58, 58, 58);
+}
+
+img{
+    width: 250px;
+}

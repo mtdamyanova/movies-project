@@ -1,0 +1,22 @@
+p {
+    color: white;
+}
+
+.card-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .card {
+    margin: 13px;
+    background-color: rgb(53, 53, 53);
+    color: white;
+  }
+
+  .loading {
+    margin: 80px auto;
+    color: white;
+    font-size: 28px;
+    text-align: center;
+  }

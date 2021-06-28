@@ -12,6 +12,7 @@ import { CarouselComponent } from './components/home-page/carousel/carousel.comp
 import { HttpClientModule } from '@angular/common/http';
 import { SelectedMovieComponent } from './components/movies-page/selected-movie/selected-movie.component';
 import { AddNewMovieComponent } from './components/add-new-movie/add-new-movie.component';
+import { MovieByDirectorComponent } from './components/movies-page/movie-by-director/movie-by-director.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { AddNewMovieComponent } from './components/add-new-movie/add-new-movie.c
     CarouselComponent,
     MovieComponent,
     SelectedMovieComponent,
-    AddNewMovieComponent
+    AddNewMovieComponent,
+    MovieByDirectorComponent
   ],
   imports: [
     BrowserModule,
