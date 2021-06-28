@@ -1,2 +1,5 @@
-<p>movies-page works!</p>
-<app-movie></app-movie>
+<app-movie
+  [movies]="movies"
+  (onSort)="sortMovies($event)"
+  (onDelete)="deleteMovie($event)"
+></app-movie>
