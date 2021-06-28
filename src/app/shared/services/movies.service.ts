@@ -1,28 +1,59 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+import { Movie } from '../models/movie.model';
+import { DataStorageService } from './api-movies.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MoviesService {
-  moviesChanged = new Subject<any>();
-  theMovies = this.moviesChanged.asObservable();
-  private movies: any;
+  private _movies$ = new BehaviorSubject<any>(null);
+  public readonly movies = this._movies$.asObservable();
+  public readonly moviesArray = this._movies$
+    .asObservable()
+    .pipe(map((movies) => this.getMoviesAsArray(movies)));
 
-  constructor(private http: HttpClient) { }
-
-  setMovies(movies: any) {
-    this.movies = movies;
-    this.moviesChanged.next(this.movies);
+  constructor(private apiService: DataStorageService) {
+    this.getMovies();
   }
 
-  getMovies() {
-    return this.movies;
+  public getMovies() {
+    this.apiService.fetchMovies().subscribe((data) => {
+      this._movies$.next(data);
+      console.log(this._movies$, 'subject-a');
+    });
   }
 
-  getMovie(title: string) {
-    return this.movies[title];
+  public addMovie(movie: Movie): void {
+    this.apiService.addNewMovie(movie).subscribe((res: Movie) => {
+      const obj = {};
+      obj[res.title] = res;
+      this._movies$.next({
+        ...this.movies,
+        ...obj,
+      });
+    });
   }
-  
+
+  public getMovie(title: string): Movie {
+    return this._movies$.value[title];
+  }
+
+  public deleteMovie(title: string): void {
+    this.apiService.deleteMovie(title).subscribe(() => {
+      const currentMovies = this._movies$.value;
+      delete currentMovies[title];
+      this._movies$.next(currentMovies);
+    });
+  }
+
+  private getMoviesAsArray(movies) {
+    const resultArr = [];
+    for (let prop in movies) {
+      resultArr.push(movies[prop]);
+    }
+    return resultArr;
+  }
 }

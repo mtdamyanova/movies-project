@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
-import { DataStorageService } from 'src/app/shared/services/data-store.service';
+import { DataStorageService } from 'src/app/shared/services/api-movies.service';
 import { MoviesService } from 'src/app/shared/services/movies.service';
 
 @Component({
@@ -16,12 +16,11 @@ export class AddNewMovieComponent implements OnInit {
 
   constructor(
     private moviesService: MoviesService,
-    private dataStorageService: DataStorageService,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-     this.route.params.subscribe((params: Params) => {
+    this.route.params.subscribe((params: Params) => {
       this.title = params['title'];
       this.editMode = params['title'] != null;
 
@@ -30,7 +29,7 @@ export class AddNewMovieComponent implements OnInit {
   }
 
   onSubmit() {
-    this.dataStorageService.addNewMovie(this.addMovieForm.value);
+    this.moviesService.addMovie(this.addMovieForm.value);
     this.addMovieForm.reset();
   }
 

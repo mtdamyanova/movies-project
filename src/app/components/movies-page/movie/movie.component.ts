@@ -1,3 +1,4 @@
+import { KeyValue } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
@@ -7,20 +8,17 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class MovieComponent implements OnInit {
   @Input() movies: any;
-  @Output() onAscendingSort = new EventEmitter();
-  @Output() onDescendingSort = new EventEmitter();
+  @Output() onSort = new EventEmitter();
   @Output() onDelete = new EventEmitter();
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
-  ascendingSort(prop: string) {
-    this.onAscendingSort.emit(prop);
+  sortMovies(prop: string, type: string) {
+    this.onSort.emit({ prop, type });
   }
-  descendingSort(prop: string) {
-    this.onDescendingSort.emit(prop);
-  }
+
   deleteMovie(prop: string) {
     this.onDelete.emit(prop);
   }

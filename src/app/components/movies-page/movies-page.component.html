@@ -1,6 +1,5 @@
 <app-movie
   [movies]="movies"
-  (onAscendingSort)="ascendingSort($event)"
-  (onDescendingSort)="descendingSort($event)"
+  (onSort)="sortMovies($event)"
   (onDelete)="deleteMovie($event)"
 ></app-movie>

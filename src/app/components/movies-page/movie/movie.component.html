@@ -1,14 +1,12 @@
-<table
-  class="table table-bordered table-striped table-dark table-hover align-middle"
->
+<table class="table table-bordered table-striped table-dark table-hover align-middle">
   <thead class="thead-dark">
     <tr>
       <th scope="col" routerLink>#</th>
       <th scope="col" class="arrows-container">
         <span>Title</span>
         <span>
-          <span class="arrows" (click)="ascendingSort('title')">&#8593;</span>
-          <span class="arrows" (click)="descendingSort('title')">&#8595;</span>
+          <span class="arrows" (click)="sortMovies('title','asc')">&#8593;</span>
+          <span class="arrows" (click)="sortMovies('title','desc')">&#8595;</span>
         </span>
       </th>
       <th scope="col" class="description">Description</th>
@@ -16,8 +14,8 @@
       <th scope="col" class="arrows-container">
         <span>Year</span>
         <span>
-          <span class="arrows" (click)="ascendingSort('year')">&#8593;</span>
-          <span class="arrows" (click)="descendingSort('year')">&#8595;</span>
+          <span class="arrows" (click)="sortMovies('year','asc')">&#8593;</span>
+          <span class="arrows" (click)="sortMovies('year','desc')">&#8595;</span>
         </span>
       </th>
       <th scope="col">Poster</th>
@@ -34,19 +32,10 @@
       <td>{{ movie.director }}</td>
       <td>{{ movie.year | date: "dd MMM yyyy" }}</td>
       <td>
-        <img
-          [src]="movie.img"
-          class="mr-2"
-          style="width: 200px"
-          [routerLink]="['/movies', movie.title]"
-        />
+        <img [src]="movie.img" class="mr-2" style="width: 200px" [routerLink]="['/movies', movie.title]" />
       </td>
       <td>
-        <button
-          type="button"
-          class="btn btn-danger"
-          (click)="deleteMovie(movie.title)"
-        >
+        <button type="button" class="btn btn-danger" (click)="deleteMovie(movie.title)">
           Delete
         </button>
       </td>
