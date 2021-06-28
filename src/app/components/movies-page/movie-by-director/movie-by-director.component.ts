@@ -29,7 +29,7 @@ export class MovieByDirectorComponent implements OnInit, OnDestroy {
       .subscribe((res) => 
       this.movies = res)
       this.moviesByDirector = this.movies.filter(movie => movie.director === this.director);
-    }, 300);
+    }, 400);
   }
 
   ngOnDestroy() {

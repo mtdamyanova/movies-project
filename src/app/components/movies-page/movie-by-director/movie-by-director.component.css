@@ -2,6 +2,10 @@ p {
     color: white;
 }
 
+.container {
+  max-width: 1240px !important;
+}
+
 .card-container {
     display: flex;
     flex-direction: row;
