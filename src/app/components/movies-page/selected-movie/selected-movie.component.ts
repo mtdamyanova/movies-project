@@ -16,10 +16,9 @@ export class SelectedMovieComponent implements OnInit {
 
   ngOnInit() {
     this.title = this.route.snapshot.paramMap.get('title');
-
-    this.moviesService.getMovie(this.title);
+    this.movie = this.moviesService.getMovie(this.title);
   }
-  
+
   onMouseOver() {
     this.hoverDescription = true;
   }

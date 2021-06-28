@@ -27,8 +27,6 @@ export class MoviesService {
   }
 
   public addMovie(movie: Movie): void {
-    console.log(this.movies, 'movies BEFORE adding the new one');
-
     this.apiService.addNewMovie(movie).subscribe((res: Movie) => {
       const obj = {};
       obj[res.title] = res;
@@ -36,12 +34,11 @@ export class MoviesService {
         ...this.movies,
         ...obj,
       });
-      console.log(this.movies, 'movies AFTER adding the new one');
     });
   }
 
   public getMovie(title: string): Movie {
-    return this.movies[title];
+    return this._movies$.value[title];
   }
 
   public deleteMovie(title: string): void {

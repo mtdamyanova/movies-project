@@ -1,6 +1,8 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject, Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import * as moment from 'moment';
+import { Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
+import { Movie } from 'src/app/shared/models/movie.model';
 import { MoviesService } from 'src/app/shared/services/movies.service';
 
 @Component({
@@ -8,11 +10,11 @@ import { MoviesService } from 'src/app/shared/services/movies.service';
   templateUrl: './movies-page.component.html',
   styleUrls: ['./movies-page.component.css'],
 })
-export class MoviesPageComponent implements OnInit, OnDestroy, AfterViewInit {
+export class MoviesPageComponent implements OnInit, OnDestroy {
   public movies: any;
   private destroy$ = new Subject();
 
-  constructor(private moviesService: MoviesService) {}
+  constructor(private moviesService: MoviesService) { }
 
   ngOnInit(): void {
     this.moviesService.moviesArray
@@ -20,39 +22,20 @@ export class MoviesPageComponent implements OnInit, OnDestroy, AfterViewInit {
       .subscribe((res) => {
         this.movies = res;
       });
-    console.log(this.movies, 'v parent componenta');
-  }
-  ngAfterViewInit() {
-    console.log(this.movies, 'vyv view init');
   }
 
-  ascendingSort(prop: string) {
-    // TODO Use Lodash and Momentjs
-    if (prop === 'year') {
-      this.movies.sort((a, b) =>
-        a[prop].slice(a[prop].lastIndexOf('-')) >
-        b[prop].slice(b[prop].lastIndexOf('-'))
-          ? -1
-          : 1
+  sortMovies(data) {
+    if (data.prop === 'year' && data.type === 'asc') {
+      this.movies.sort((a: Movie, b: Movie) => moment(a.year, 'DD-MM-YYYY').diff(moment(b.year, 'DD-MM-YYYY')));
+    } else if (data.prop === 'year' && data.type === 'desc') {
+      this.movies.sort((a: Movie, b: Movie) => moment(b.year, 'DD-MM-YYYY').diff(moment(a.year, 'DD-MM-YYYY')));
+    } else if (data.prop === 'title' && data.type === 'asc') {
+      this.movies.sort((a: Movie, b: Movie) =>
+        a[data.prop].toLowerCase() > b[data.prop].toLowerCase() ? -1 : 1
       );
     } else {
-      this.movies.sort((a, b) =>
-        a[prop].toLowerCase() > b[prop].toLowerCase() ? -1 : 1
-      );
-    }
-  }
-
-  descendingSort(prop: string) {
-    if (prop === 'year') {
-      this.movies.sort((a, b) =>
-        a[prop].slice(a[prop].lastIndexOf('-')) >
-        b[prop].slice(b[prop].lastIndexOf('-'))
-          ? 1
-          : -1
-      );
-    } else {
-      this.movies.sort((a, b) =>
-        a[prop].toLowerCase() > b[prop].toLowerCase() ? 1 : -1
+      this.movies.sort((a: Movie, b: Movie) =>
+        a[data.prop].toLowerCase() > b[data.prop].toLowerCase() ? 1 : -1
       );
     }
   }
