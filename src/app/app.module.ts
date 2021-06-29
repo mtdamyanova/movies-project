@@ -12,18 +12,20 @@ import { CarouselComponent } from './components/home-page/carousel/carousel.comp
 import { HttpClientModule } from '@angular/common/http';
 import { SelectedMovieComponent } from './components/movies-page/selected-movie/selected-movie.component';
 import { AddNewMovieComponent } from './components/add-new-movie/add-new-movie.component';
+import { FilterPipe } from './components/movies-page/filter.pipe';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    FilterPipe,
     HeaderComponent,
     MoviesPageComponent,
     HomePageComponent,
     CarouselComponent,
     MovieComponent,
     SelectedMovieComponent,
-    AddNewMovieComponent
+    AddNewMovieComponent,
   ],
   imports: [
     BrowserModule,

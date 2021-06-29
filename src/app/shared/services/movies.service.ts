@@ -22,7 +22,6 @@ export class MoviesService {
   public getMovies() {
     this.apiService.fetchMovies().subscribe((data) => {
       this._movies$.next(data);
-      console.log(this._movies$, 'subject-a');
     });
   }
 
