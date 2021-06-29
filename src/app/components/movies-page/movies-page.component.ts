@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import * as moment from 'moment';
-import { Subject } from 'rxjs';
-import { map, takeUntil } from 'rxjs/operators';
+import { fromEvent, Subject } from 'rxjs';
+import { debounce, debounceTime, distinctUntilChanged, filter, map, takeUntil, tap } from 'rxjs/operators';
 import { Movie } from 'src/app/shared/models/movie.model';
 import { MoviesService } from 'src/app/shared/services/movies.service';
 
@@ -13,6 +13,8 @@ import { MoviesService } from 'src/app/shared/services/movies.service';
 export class MoviesPageComponent implements OnInit, OnDestroy {
   public movies: any;
   private destroy$ = new Subject();
+  @Output() inputValue : string = '';
+
 
   constructor(private moviesService: MoviesService) { }
 
@@ -21,7 +23,7 @@ export class MoviesPageComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         this.movies = res;
-      });
+      })
   }
 
   sortMovies(data) {
