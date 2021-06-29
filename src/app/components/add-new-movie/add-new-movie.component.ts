@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireStorage } from '@angular/fire/storage';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { MoviesService } from 'src/app/shared/services/movies.service';
 
 @Component({
@@ -12,11 +14,13 @@ export class AddNewMovieComponent implements OnInit {
   addMovieForm: FormGroup;
   title: string;
   editMode = false;
+  downloadURL: Observable<string>;
 
   constructor(
     private moviesService: MoviesService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private storage: AngularFireStorage
   ) {}
 
   ngOnInit() {
@@ -42,7 +46,7 @@ export class AddNewMovieComponent implements OnInit {
     // this.addMovieForm.reset();
   }
 
-  onCancel() {  
+  onCancel() {
     if (this.editMode) {
       this.router.navigate([`../../movies/${this.title}`], {
         relativeTo: this.route,
@@ -60,13 +64,15 @@ export class AddNewMovieComponent implements OnInit {
     let movieDescription = '';
 
     if (this.editMode) {
-      const movie = this.moviesService.getMovie(this.title);
+      this.moviesService.getMovie(this.title).subscribe((res) => {
+        const movie = res;
 
-      movieTitle = movie.title;
-      movieDirector = movie.director;
-      movieYear = movie.year;
-      movieImg = movie.img;
-      movieDescription = movie.description;
+        movieTitle = movie.title;
+        movieDirector = movie.director;
+        movieYear = movie.year;
+        movieImg = movie.img;
+        movieDescription = movie.description;
+      });
     }
 
     this.addMovieForm = new FormGroup({

@@ -25,11 +25,12 @@ export class MovieByDirectorComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.director = this.route.snapshot.paramMap.get('director');
 
-    setTimeout(() => { this.moviesService.moviesArray.pipe(takeUntil(this.destroy$))
-      .subscribe((res) => 
-      this.movies = res)
-      this.moviesByDirector = this.movies.filter(movie => movie.director === this.director);
-    }, 400);
+    this.moviesService.moviesArray
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((res) => {
+        this.moviesByDirector = res.filter(mov => mov.director === this.director);
+      });
+      
   }
 
   ngOnDestroy() {
