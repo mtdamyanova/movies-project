@@ -1,0 +1,11 @@
+.containerCustom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.dark {
+  background-color: gray;
+}
+.light {
+  background-color: darkgray;
+}

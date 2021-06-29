@@ -1,5 +1,21 @@
-<app-movie
-  [movies]="movies"
-  (onSort)="sortMovies($event)"
-  (onDelete)="deleteMovie($event)"
-></app-movie>
+<div
+  (click)="toggleView()"
+  [ngClass]="{ dark: cardsViewOn, light: !cardsViewOn }"
+>
+  Toggle view
+</div>
+<ng-template [ngIf]="!cardsViewOn" [ngIfElse]="cardsView">
+  <app-movie
+    [movies]="movies"
+    (onSort)="sortMovies($event)"
+    (onDelete)="deleteMovie($event)"
+  ></app-movie>
+</ng-template>
+<ng-template #cardsView>
+  <div [ngClass]="'containerCustom'">
+    <app-movie-card
+      *ngFor="let movie of movies"
+      [movie]="movie"
+    ></app-movie-card>
+  </div>
+</ng-template>

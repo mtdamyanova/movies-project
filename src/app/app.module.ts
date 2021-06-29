@@ -12,7 +12,7 @@ import { CarouselComponent } from './components/home-page/carousel/carousel.comp
 import { HttpClientModule } from '@angular/common/http';
 import { SelectedMovieComponent } from './components/movies-page/selected-movie/selected-movie.component';
 import { AddNewMovieComponent } from './components/add-new-movie/add-new-movie.component';
-
+import { MovieCardComponent } from './components/movies-page/movie-card/movie-card.component';
 
 @NgModule({
   declarations: [
@@ -23,14 +23,15 @@ import { AddNewMovieComponent } from './components/add-new-movie/add-new-movie.c
     CarouselComponent,
     MovieComponent,
     SelectedMovieComponent,
-    AddNewMovieComponent
+    AddNewMovieComponent,
+    MovieCardComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
     MyRouteRoutes,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

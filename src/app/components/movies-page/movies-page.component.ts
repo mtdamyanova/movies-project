@@ -13,8 +13,9 @@ import { MoviesService } from 'src/app/shared/services/movies.service';
 export class MoviesPageComponent implements OnInit, OnDestroy {
   public movies: any;
   private destroy$ = new Subject();
+  public cardsViewOn: boolean = false;
 
-  constructor(private moviesService: MoviesService) { }
+  constructor(private moviesService: MoviesService) {}
 
   ngOnInit(): void {
     this.moviesService.moviesArray
@@ -24,11 +25,19 @@ export class MoviesPageComponent implements OnInit, OnDestroy {
       });
   }
 
+  toggleView() {
+    this.cardsViewOn = !this.cardsViewOn;
+  }
+
   sortMovies(data) {
     if (data.prop === 'year' && data.type === 'asc') {
-      this.movies.sort((a: Movie, b: Movie) => moment(a.year, 'DD-MM-YYYY').diff(moment(b.year, 'DD-MM-YYYY')));
+      this.movies.sort((a: Movie, b: Movie) =>
+        moment(a.year, 'DD-MM-YYYY').diff(moment(b.year, 'DD-MM-YYYY'))
+      );
     } else if (data.prop === 'year' && data.type === 'desc') {
-      this.movies.sort((a: Movie, b: Movie) => moment(b.year, 'DD-MM-YYYY').diff(moment(a.year, 'DD-MM-YYYY')));
+      this.movies.sort((a: Movie, b: Movie) =>
+        moment(b.year, 'DD-MM-YYYY').diff(moment(a.year, 'DD-MM-YYYY'))
+      );
     } else if (data.prop === 'title' && data.type === 'asc') {
       this.movies.sort((a: Movie, b: Movie) =>
         a[data.prop].toLowerCase() > b[data.prop].toLowerCase() ? -1 : 1
