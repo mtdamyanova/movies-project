@@ -22,9 +22,12 @@ export class SelectedMovieComponent implements OnInit {
   ngOnInit() {
     this.title = this.route.snapshot.paramMap.get('title');
     // this.movie = this.moviesService.getMovie(this.title);
-    this.moviesService.moviesArray.subscribe((movies) => {
-      this.movie = movies.filter((data) => data.title == this.title)[0];
-    });
+    // this.moviesService.moviesArray.subscribe((movies) => {
+    //   this.movie = movies.filter((data) => data.title == this.title)[0];
+    // });
+    this.moviesService
+      .getMovie(this.title)
+      .subscribe((movie) => (this.movie = movie));
   }
 
   onMouseOver() {

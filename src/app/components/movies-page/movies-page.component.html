@@ -1,21 +1,21 @@
 <div
-  (click)="toggleView()"
+  (click)="toggleView(!cardsViewOn)"
   [ngClass]="{ dark: cardsViewOn, light: !cardsViewOn }"
 >
   Toggle view
 </div>
-<ng-template [ngIf]="!cardsViewOn" [ngIfElse]="cardsView">
-  <app-movie
-    [movies]="movies"
-    (onSort)="sortMovies($event)"
-    (onDelete)="deleteMovie($event)"
-  ></app-movie>
-</ng-template>
-<ng-template #cardsView>
+<div *ngIf="cardsViewOn; else elseBlock">
   <div [ngClass]="'containerCustom'">
     <app-movie-card
       *ngFor="let movie of movies"
       [movie]="movie"
     ></app-movie-card>
   </div>
+</div>
+<ng-template #elseBlock>
+  <app-movie
+    [movies]="movies"
+    (onSort)="sortMovies($event)"
+    (onDelete)="deleteMovie($event)"
+  ></app-movie>
 </ng-template>

@@ -45,13 +45,13 @@ export class AddNewMovieComponent implements OnInit {
     let movieDescription = '';
 
     if (this.editMode) {
-      const movie = this.moviesService.getMovie(this.title);
-
-      movieTitle = movie.title;
-      movieDirector = movie.director;
-      movieYear = movie.year;
-      movieImg = movie.img;
-      movieDescription = movie.description;
+      this.moviesService.getMovie(this.title).subscribe((movie) => {
+        movieTitle = movie.title;
+        movieDirector = movie.director;
+        movieYear = movie.year;
+        movieImg = movie.img;
+        movieDescription = movie.description;
+      });
     }
 
     this.addMovieForm = new FormGroup({

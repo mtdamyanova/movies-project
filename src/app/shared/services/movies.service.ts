@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { filter, map, tap } from 'rxjs/operators';
 import { Movie } from '../models/movie.model';
 import { DataStorageService } from './api-movies.service';
 
@@ -44,8 +44,14 @@ export class MoviesService {
     });
   }
 
-  public getMovie(title: string): Movie {
-    return this._movies$.value[title];
+  // public getMovie(title: string): Movie {
+  //   return this._movies$.value[title];
+  // }
+  public getMovie(title: string): Observable<Movie> {
+    return this._movies$.pipe(
+      filter((movies) => movies !== null),
+      map((movies) => movies[title])
+    );
   }
 
   public deleteMovie(title: string): void {
