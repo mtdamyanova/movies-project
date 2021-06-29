@@ -42,7 +42,7 @@ export class AddNewMovieComponent implements OnInit {
     // this.addMovieForm.reset();
   }
 
-  onCancel() {
+  onCancel() {  
     if (this.editMode) {
       this.router.navigate([`../../movies/${this.title}`], {
         relativeTo: this.route,

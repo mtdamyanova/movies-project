@@ -57,6 +57,6 @@
       ></textarea>
     </div>
     <button type="submit" class="btn btn-dark" [disabled]="!addMovieForm.valid">{{editMode? "Edit" : "Add"}}</button> |
-    <button type="submit" class="btn btn-dark" (click)="onCancel()">Cancel</button>
+    <button type="button" class="btn btn-dark" (click)="onCancel()">Cancel</button>
   </form>
 </div>
