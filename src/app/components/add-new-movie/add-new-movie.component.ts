@@ -3,6 +3,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 import { MoviesService } from 'src/app/shared/services/movies.service';
 
 @Component({
@@ -14,7 +15,11 @@ export class AddNewMovieComponent implements OnInit {
   addMovieForm: FormGroup;
   title: string;
   editMode = false;
-  downloadURL: Observable<string>;
+  // downloadURL: Observable<string>;
+  downloadURL: string;
+  imageFile: File = null;
+  uploadPercent: Observable<number>;
+  percent: number;
 
   constructor(
     private moviesService: MoviesService,
@@ -54,6 +59,30 @@ export class AddNewMovieComponent implements OnInit {
     } else {
       this.addMovieForm.reset();
     }
+  }
+
+  onFileSelected($event) {
+    this.imageFile = $event.target.files[0];
+  }
+
+  uploadImage() {
+    const filePath =
+      '/images/' + Math.floor(Math.random() * 100) + this.imageFile.name;
+    const fileRef = this.storage.ref(filePath);
+    const uploadTask = this.storage.upload(filePath, this.imageFile);
+    // this.uploadPercent = uploadTask.percentageChanges();
+    uploadTask.percentageChanges().subscribe((data) => (this.percent = data));
+    uploadTask
+      .snapshotChanges()
+      .pipe(
+        finalize(() =>
+          fileRef.getDownloadURL().subscribe((data) => {
+            this.downloadURL = data;
+            this.addMovieForm.get('img').setValue(data);
+          })
+        )
+      )
+      .subscribe((res) => console.log(res, 'res'));
   }
 
   private initForm() {
