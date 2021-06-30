@@ -4,8 +4,13 @@
   justify-content: space-around;
 }
 .dark {
-  background-color: gray;
+  background-color: rgb(245, 241, 209);
 }
 .light {
-  background-color: darkgray;
+  background-color: rgb(215, 212, 238);
+}
+.toggleBtn {
+  font-weight: bold;
+  text-align: center;
+  user-select: none;
 }

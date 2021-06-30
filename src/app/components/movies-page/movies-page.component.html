@@ -1,8 +1,8 @@
 <div
   (click)="toggleView(!cardsViewOn)"
-  [ngClass]="{ dark: cardsViewOn, light: !cardsViewOn }"
+  [ngClass]="{ dark: cardsViewOn, light: !cardsViewOn, toggleBtn: true }"
 >
-  Toggle view
+  {{ cardsViewOn ? "Cards View" : "Table View" }}
 </div>
 <div *ngIf="cardsViewOn; else elseBlock">
   <div [ngClass]="'containerCustom'">

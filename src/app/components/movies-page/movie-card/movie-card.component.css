@@ -1,0 +1,15 @@
+.card {
+  max-height: 500px;
+  width: 12rem;
+  margin: 30px;
+  border: black;
+  filter: drop-shadow(3px 3px 1px #4b4b4b);
+}
+
+.card-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* number of lines to show */
+  -webkit-box-orient: vertical;
+}
