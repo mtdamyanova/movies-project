@@ -9,9 +9,9 @@ const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'movies', component: MoviesPageComponent },
   { path: 'new', component: AddNewMovieComponent },
-  { path: 'movies/director/:director', component: MovieByDirectorComponent},
-  { path: 'movies/:title', component: SelectedMovieComponent},
-  { path: ':title/edit', component: AddNewMovieComponent },
+  { path: 'movies/director/:director', component: MovieByDirectorComponent },
+  { path: 'movies/:title', component: SelectedMovieComponent },
+  { path: 'movies/:title/edit', component: AddNewMovieComponent },
 ];
 
 export const MyRouteRoutes = RouterModule.forRoot(routes);

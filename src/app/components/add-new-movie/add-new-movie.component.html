@@ -40,11 +40,12 @@
         id="imageUpload"
         #uploader
       />
+      <div [ngStyle]="{ color: 'red' }">{{ errorMessage }}</div>
       <button
         type="button"
         [ngClass]="'col-12 mt-2 mb-2 btn btn-sm btn-outline-light'"
         (click)="uploadImage()"
-        [disabled]="!uploader.value"
+        [disabled]="!uploader.value || errorMessage"
       >
         Upload!
       </button>

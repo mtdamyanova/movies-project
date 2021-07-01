@@ -21,7 +21,9 @@ export class SelectedMovieComponent implements OnInit {
 
   ngOnInit() {
     this.title = this.route.snapshot.paramMap.get('title');
-    this.moviesService.getMovie(this.title).subscribe(movie => this.movie = movie)
+    this.moviesService
+      .getMovie(this.title)
+      .subscribe((movie) => (this.movie = movie));
   }
 
   onMouseOver() {
@@ -33,7 +35,7 @@ export class SelectedMovieComponent implements OnInit {
   }
 
   onEdit() {
-    this.router.navigate([`../../${this.title}/edit`], {
+    this.router.navigate([`../${this.title}/edit`], {
       relativeTo: this.route,
     });
   }

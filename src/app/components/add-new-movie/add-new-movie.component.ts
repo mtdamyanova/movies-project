@@ -4,8 +4,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
+import { Movie } from 'src/app/shared/models/movie.model';
 import { MoviesService } from 'src/app/shared/services/movies.service';
 
+const maxFileSize = 4000000;
 @Component({
   selector: 'app-add-new-movie',
   templateUrl: './add-new-movie.component.html',
@@ -15,11 +17,11 @@ export class AddNewMovieComponent implements OnInit {
   addMovieForm: FormGroup;
   title: string;
   editMode = false;
-  // downloadURL: Observable<string>;
   downloadURL: string;
   imageFile: File = null;
   uploadPercent: Observable<number>;
   percent: number;
+  errorMessage: string = '';
 
   constructor(
     private moviesService: MoviesService,
@@ -48,12 +50,11 @@ export class AddNewMovieComponent implements OnInit {
         relativeTo: this.route,
       });
     }
-    // this.addMovieForm.reset();
   }
 
   onCancel() {
     if (this.editMode) {
-      this.router.navigate([`../../movies/${this.title}`], {
+      this.router.navigate(['../'], {
         relativeTo: this.route,
       });
     } else {
@@ -62,7 +63,24 @@ export class AddNewMovieComponent implements OnInit {
   }
 
   onFileSelected($event) {
-    this.imageFile = $event.target.files[0];
+    this.errorMessage = '';
+    if ($event.target.files.length > 0 && $event.target.files[0] != null) {
+      const file = $event.target.files[0];
+      if (this.validateFile(file)) {
+        this.imageFile = file;
+      } else {
+        this.errorMessage = 'Not a valid file!';
+      }
+    }
+  }
+
+  validateFile(file: File): boolean {
+    if (file.size > maxFileSize) {
+      return false;
+    } else if (!file.type.includes('image')) {
+      return false;
+    }
+    return true;
   }
 
   uploadImage() {
@@ -70,7 +88,6 @@ export class AddNewMovieComponent implements OnInit {
       '/images/' + Math.floor(Math.random() * 100) + this.imageFile.name;
     const fileRef = this.storage.ref(filePath);
     const uploadTask = this.storage.upload(filePath, this.imageFile);
-    // this.uploadPercent = uploadTask.percentageChanges();
     uploadTask.percentageChanges().subscribe((data) => (this.percent = data));
     uploadTask
       .snapshotChanges()
@@ -86,30 +103,38 @@ export class AddNewMovieComponent implements OnInit {
   }
 
   private initForm() {
-    let movieTitle = '';
-    let movieDirector = '';
-    let movieYear = '';
-    let movieImg = '';
-    let movieDescription = '';
+    const movieObj = {
+      movieTitle: '',
+      movieDirector: '',
+      movieYear: '',
+      movieImg: '',
+      movieDescription: '',
+    };
 
     if (this.editMode) {
       this.moviesService.getMovie(this.title).subscribe((res) => {
         const movie = res;
 
-        movieTitle = movie.title;
-        movieDirector = movie.director;
-        movieYear = movie.year;
-        movieImg = movie.img;
-        movieDescription = movie.description;
+        movieObj.movieTitle = movie.title;
+        movieObj.movieDirector = movie.director;
+        movieObj.movieYear = movie.year;
+        movieObj.movieImg = movie.img;
+        movieObj.movieDescription = movie.description;
+
+        this.setFormData(movieObj);
       });
     }
 
+    this.setFormData(movieObj);
+  }
+
+  setFormData(obj) {
     this.addMovieForm = new FormGroup({
-      title: new FormControl(movieTitle, [Validators.required]),
-      director: new FormControl(movieDirector, [Validators.required]),
-      year: new FormControl(movieYear, [Validators.required]),
-      img: new FormControl(movieImg, [Validators.required]),
-      description: new FormControl(movieDescription, [Validators.required]),
+      title: new FormControl(obj.movieTitle, [Validators.required]),
+      director: new FormControl(obj.movieDirector, [Validators.required]),
+      year: new FormControl(obj.movieYear, [Validators.required]),
+      img: new FormControl(obj.movieImg, [Validators.required]),
+      description: new FormControl(obj.movieDescription, [Validators.required]),
     });
   }
 }
