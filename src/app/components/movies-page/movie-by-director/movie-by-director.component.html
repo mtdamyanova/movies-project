@@ -1,0 +1,22 @@
+<div *ngIf="moviesByDirector" class="container">
+  <div class="card-container">
+    <div
+      *ngFor="let movie of moviesByDirector"
+      class="card"
+      style="width: 17rem"
+    >
+      <img [src]="movie.img" class="card-img-top" />
+      <div class="card-body">
+        <h5 class="card-title">{{ movie.title }}</h5>
+        <p class="card-text">{{ movie.year }}</p>
+        <p class="card-text">{{ movie.description }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="movie-container">
+    <div class="loading">... Loading</div>
+  </div>
+</ng-template>

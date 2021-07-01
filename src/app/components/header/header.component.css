@@ -10,3 +10,7 @@
 .navbar-header {
   cursor: pointer;
 }
+
+img {
+  width: 40px;
+}
