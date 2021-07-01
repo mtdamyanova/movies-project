@@ -29,10 +29,10 @@
         <strong>{{ movie.title }}</strong>
       </td>
       <td>{{ movie.description }}</td>
-      <td>{{ movie.director }}</td>
+      <td [routerLink]="['/movies/director', movie.director]" style="cursor: pointer;">{{ movie.director }}</td>
       <td>{{ movie.year | date: "dd MMM yyyy" }}</td>
       <td>
-        <img [src]="movie.img" class="mr-2" style="width: 200px" [routerLink]="['/movies', movie.title]" />
+        <img [src]="movie.img" class="mr-2" style="width: 200px; cursor: pointer;" [routerLink]="['/movies', movie.title]" />
       </td>
       <td>
         <button type="button" class="btn btn-danger" (click)="deleteMovie(movie.title)">

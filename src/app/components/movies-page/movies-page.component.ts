@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { Subject } from 'rxjs';
-import { map, take, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { Movie } from 'src/app/shared/models/movie.model';
 import { MoviesService } from 'src/app/shared/services/movies.service';
 
@@ -65,6 +65,7 @@ export class MoviesPageComponent implements OnInit, OnDestroy {
   deleteMovie(prop: string) {
     this.moviesService.deleteMovie(prop);
   }
+  
 
   ngOnDestroy() {
     this.destroy$.next();

@@ -1,27 +1,31 @@
-<div *ngIf="!movie; else movieContainer" [ngStyle]="{ color: 'green' }">
-  Loading...
-</div>
-<ng-template #movieContainer>
-  <div class="container">
-    <div class="movie-container">
-      <img src="{{ movie.img }}" alt="{{ movie.title }}" />
-      <div class="movie-info-container">
-        <h3>{{ movie.title }}</h3>
-        <h5>Year : {{ movie.year | date: "dd MMM yyyy" }}</h5>
-        <h5>Director : {{ movie.director }}</h5>
+<div *ngIf="movie; else loading" class="container">
+  <div class="movie-container">
+    <img src="{{ movie.img }}" alt="{{ movie.title }}" />
+    <div class="movie-info-container">
+      <h3>{{ movie.title }}</h3>
+      <h5>Year : {{ movie.year | date: "dd MMM yyyy" }}</h5>
+      <h5>Director : {{ movie.director }}</h5>
+      <button type="submit" class="btn btn-light" (click)="onEdit()">
+        Edit
+      </button>
+    </div>
+    <div>
+      <div
+        class="info-container"
+        (mouseover)="onMouseOver()"
+        (mouseleave)="onMouseLeave()"
+      >
+        i
       </div>
-      <div>
-        <div
-          class="info-container"
-          (mouseover)="onMouseOver()"
-          (mouseleave)="onMouseLeave()"
-        >
-          i
-        </div>
-        <div class="descriprion-container" *ngIf="hoverDescription">
-          {{ movie.description }}
-        </div>
+      <div class="descriprion-container" *ngIf="hoverDescription">
+        {{ movie.description }}
       </div>
     </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="movie-container">
+    <div class="loading">... Loading</div>
   </div>
 </ng-template>
