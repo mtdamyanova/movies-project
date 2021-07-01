@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CarouselComponent } from './components/home-page/carousel/carousel.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SelectedMovieComponent } from './components/movies-page/selected-movie/selected-movie.component';
+import { MovieCardComponent } from './components/movies-page/movie-card/movie-card.component';
 import { AddNewMovieComponent } from './components/add-or-edit-movie/add-or-edit-movie.component';
 import { MovieByDirectorComponent } from './components/movies-page/movie-by-director/movie-by-director.component';
 import { AngularFireModule } from '@angular/fire';
@@ -27,6 +28,7 @@ import { environment } from '../environments/environment';
     MovieComponent,
     SelectedMovieComponent,
     AddNewMovieComponent,
+    MovieCardComponent,
     MovieByDirectorComponent,
   ],
   imports: [
