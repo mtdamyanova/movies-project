@@ -17,6 +17,7 @@ import { MovieByDirectorComponent } from './components/movies-page/movie-by-dire
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { environment } from '../environments/environment';
+import { IvyCarouselModule } from 'angular-responsive-carousel';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { environment } from '../environments/environment';
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireStorageModule,
+    IvyCarouselModule
   ],
   providers: [],
   bootstrap: [AppComponent],
