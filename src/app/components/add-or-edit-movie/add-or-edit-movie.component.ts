@@ -10,8 +10,8 @@ import { MoviesService } from 'src/app/shared/services/movies.service';
 const maxFileSize = 4000000;
 @Component({
   selector: 'app-add-new-movie',
-  templateUrl: './add-new-movie.component.html',
-  styleUrls: ['./add-new-movie.component.css'],
+  templateUrl: './add-or-edit-movie.component.html',
+  styleUrls: ['./add-or-edit-movie.component.css'],
 })
 export class AddNewMovieComponent implements OnInit {
   addMovieForm: FormGroup;

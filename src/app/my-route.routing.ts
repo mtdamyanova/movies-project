@@ -1,5 +1,5 @@
 import { Routes, RouterModule } from '@angular/router';
-import { AddNewMovieComponent } from './components/add-new-movie/add-new-movie.component';
+import { AddNewMovieComponent } from './components/add-or-edit-movie/add-or-edit-movie.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { MovieByDirectorComponent } from './components/movies-page/movie-by-director/movie-by-director.component';
 import { MoviesPageComponent } from './components/movies-page/movies-page.component';
