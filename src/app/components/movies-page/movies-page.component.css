@@ -8,3 +8,19 @@
   border:none;
   outline: none;
 }
+.containerCustom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.dark {
+  background-color: rgb(245, 241, 209);
+}
+.light {
+  background-color: rgb(215, 212, 238);
+}
+.toggleBtn {
+  font-weight: bold;
+  text-align: center;
+  user-select: none;
+}
