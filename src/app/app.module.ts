@@ -20,6 +20,8 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { environment } from '../environments/environment';
 import { IvyCarouselModule } from 'angular-responsive-carousel';
+import { SignInComponent } from './components/header/sign-in/sign-in.component';
+import { SignUpComponent } from './components/header/sign-up/sign-up.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import { IvyCarouselModule } from 'angular-responsive-carousel';
     AddNewMovieComponent,
     MovieCardComponent,
     MovieByDirectorComponent,
+    SignInComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,

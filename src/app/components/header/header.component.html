@@ -1,28 +1,18 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" routerLink="/">
-      <img src="https://firebasestorage.googleapis.com/v0/b/angular-project-e49e1.appspot.com/o/PikPng.com_movie-png-icon_3276414.png?alt=media&token=32499c82-b48d-455e-8dd4-4a2739efd037" alt="Logo" />
+      <img
+        src="https://firebasestorage.googleapis.com/v0/b/angular-project-e49e1.appspot.com/o/PikPng.com_movie-png-icon_3276414.png?alt=media&token=32499c82-b48d-455e-8dd4-4a2739efd037"
+        alt="Logo" />
     </a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarText"
-      aria-controls="navbarText"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+      aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a
-            class="nav-link"
-            routerLink="/movies"
-            [queryParams]="{ cardsView: false }"
-            >Movies</a
-          >
+          <a class="nav-link" routerLink="/movies" [queryParams]="{ cardsView: false }">Movies</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/new">Add new Movie</a>
@@ -30,5 +20,15 @@
       </ul>
     </div>
   </div>
+  <div *ngIf="userLogo; else signForm" class="user-container">
+    <p class="user-logo">{{userLogo}}</p>
+    <p (click)="signOut()" class="logout">Logout</p>
+  </div>
+  <ng-template #signForm>
+    <div class="sign-container">
+      <a routerLink="/sign-up" class="sign-up">Sign up</a>
+      <a routerLink="/sign-in" class="sign-in">Sign in</a>
+    </div>
+  </ng-template>
 </nav>
 <router-outlet></router-outlet>
