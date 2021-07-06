@@ -17,7 +17,7 @@ import { MovieByDirectorComponent } from './components/movies-page/movie-by-dire
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { environment } from '../environments/environment';
-import { PieChartComponentComponent } from './components/pie-chart-component/pie-chart-component.component';
+import { PieChartComponentComponent } from './components/home-page/pie-chart-component/pie-chart-component.component';
 
 @NgModule({
   declarations: [

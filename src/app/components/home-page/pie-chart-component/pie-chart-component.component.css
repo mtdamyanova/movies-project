@@ -1,8 +1,7 @@
 #pie-chart-container {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  width: 960px;
-  height: 500px;
-  position: relative;
+  width: 660px;
+  margin: 50px auto;
 }
 
 svg {
