@@ -109,6 +109,7 @@ export class AddNewMovieComponent implements OnInit {
       movieYear: '',
       movieImg: '',
       movieDescription: '',
+      movieDuration: 0,
     };
 
     if (this.editMode) {
@@ -120,6 +121,8 @@ export class AddNewMovieComponent implements OnInit {
         movieObj.movieYear = movie.year;
         movieObj.movieImg = movie.img;
         movieObj.movieDescription = movie.description;
+        movieObj.movieDuration = movie.duration;
+        debugger;
 
         this.setFormData(movieObj);
       });
@@ -135,6 +138,7 @@ export class AddNewMovieComponent implements OnInit {
       year: new FormControl(obj.movieYear, [Validators.required]),
       img: new FormControl(obj.movieImg, [Validators.required]),
       description: new FormControl(obj.movieDescription, [Validators.required]),
+      duration: new FormControl(obj.movieDuration, [Validators.required]),
     });
   }
 }
