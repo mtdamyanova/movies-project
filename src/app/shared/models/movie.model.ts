@@ -5,4 +5,5 @@ export interface Movie {
   img: string;
   description: string;
   director: string;
+  duration: number;
 }
