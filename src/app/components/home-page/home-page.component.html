@@ -1,3 +1,9 @@
 <app-carousel></app-carousel>
 <!-- for testing -->
-<app-pie-chart-component></app-pie-chart-component>
+<button type="button" (click)="toggleDisplayChart()">
+  Movies duration chart
+</button>
+<app-pie-chart-component
+  *ngIf="isChartDisplayed"
+  [data]="movies"
+></app-pie-chart-component>

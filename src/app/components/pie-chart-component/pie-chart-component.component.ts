@@ -2,6 +2,7 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  Input,
   OnDestroy,
   OnInit,
   ViewChild,
@@ -23,11 +24,12 @@ export class PieChartComponentComponent
 {
   @ViewChild('pieChartContainer') chartContainer: ElementRef;
   private destroy$ = new Subject();
+  @Input() data: any;
 
   constructor(private moviesService: MoviesService) {}
 
   private htmlElement: HTMLElement;
-  private data: Movie[];
+  // private data: Movie[];
   private width = 700;
   private height = 700;
   private radius = Math.min(this.width, this.height) / 2;
@@ -35,11 +37,11 @@ export class PieChartComponentComponent
   private svg: d3.Selection<SVGElement, {}, d3.BaseType, any>;
 
   ngOnInit(): void {
-    this.moviesService.moviesArray
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((res) => {
-        this.data = res;
-      });
+    // this.moviesService.moviesArray
+    //   .pipe(takeUntil(this.destroy$))
+    //   .subscribe((res) => {
+    //     this.data = res;
+    //   });
   }
 
   ngAfterViewInit(): void {
@@ -62,9 +64,7 @@ export class PieChartComponentComponent
   private buildPieChart(): void {
     let pie = d3.pie();
     console.log(this.data, 'datata predi map?');
-    let values = this.data.map((data) =>
-      moment(data.year, 'MM-DD-YYYY').valueOf()
-    );
+    let values = this.data.map((data) => data.duration);
     console.log(values, 'array of mapped values?!');
 
     let arcSelection = this.svg
@@ -72,7 +72,22 @@ export class PieChartComponentComponent
       .data(pie(values))
       .enter()
       .append('g')
-      .attr('class', 'arc');
+      .attr('class', 'arc')
+      .on('mouseover', (d, i) => {
+        this.svg
+          .append('text')
+          .attr('dy', '.5em')
+          .style('text-anchor', 'middle')
+          .style('font-size', 45)
+          .attr('class', 'labelText')
+          .style('fill', function (d, i) {
+            return 'red';
+          })
+          .text(i.value + ' minutes');
+      })
+      .on('mouseout', (d, i) => {
+        this.svg.select('.labelText').remove();
+      });
 
     this.populatePie(arcSelection);
   }
@@ -100,7 +115,7 @@ export class PieChartComponentComponent
       })
       .text((datum, index) => this.data[index].title)
       .style('text-anchor', 'middle')
-      .style('fill', 'red')
+      .style('fill', 'white')
       .attr('dy', '10px');
   }
 
