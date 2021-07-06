@@ -122,7 +122,6 @@ export class AddNewMovieComponent implements OnInit {
         movieObj.movieImg = movie.img;
         movieObj.movieDescription = movie.description;
         movieObj.movieDuration = movie.duration;
-        debugger;
 
         this.setFormData(movieObj);
       });
