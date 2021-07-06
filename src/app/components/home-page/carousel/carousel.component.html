@@ -1,1 +1,7 @@
-<p>carousel</p>
+<div class="container">
+    <carousel>
+      <div class="carousel-cell" *ngFor="let movie of movies">
+        <img [src]="movie.img" style="object-fit: cover" [routerLink]="['/movies', movie.title]"/>
+      </div>
+    </carousel>
+  </div>

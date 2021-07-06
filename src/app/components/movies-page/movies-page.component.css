@@ -1,3 +1,13 @@
+.input-container{
+    background: #2d3033;
+    text-align: center;
+    padding: 10px;
+}
+.input {
+  width: 900px;
+  border:none;
+  outline: none;
+}
 .containerCustom {
   display: flex;
   flex-wrap: wrap;

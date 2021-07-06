@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { fromEvent, Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, map, takeUntil, tap } from 'rxjs/operators';
 import { Movie } from 'src/app/shared/models/movie.model';
 import { MoviesService } from 'src/app/shared/services/movies.service';
 
@@ -14,13 +14,16 @@ import { MoviesService } from 'src/app/shared/services/movies.service';
 export class MoviesPageComponent implements OnInit, OnDestroy {
   public movies: any;
   private destroy$ = new Subject();
+  @Output() inputValue: string = '';
+  @ViewChild('input') input: ElementRef;
+
   public cardsViewOn: boolean = false;
 
   constructor(
     private moviesService: MoviesService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     //TODO: is this trueee?
@@ -33,13 +36,14 @@ export class MoviesPageComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         this.movies = res;
-      });
+      })
   }
 
   toggleView(isCardView: boolean) {
     //TODO: is this trueee?
     this.cardsViewOn = isCardView;
     this.router.navigateByUrl(`/movies?cardsView=${this.cardsViewOn}`);
+
   }
 
   sortMovies(data) {
@@ -65,7 +69,7 @@ export class MoviesPageComponent implements OnInit, OnDestroy {
   deleteMovie(prop: string) {
     this.moviesService.deleteMovie(prop);
   }
-  
+
 
   ngOnDestroy() {
     this.destroy$.next();

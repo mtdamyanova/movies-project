@@ -3,7 +3,7 @@
   color: white;
   display: flex;
 }
-.collapse{
+.collapse {
   color: white;
 }
 .navbar-nav,
@@ -13,4 +13,33 @@
 
 img {
   width: 40px;
+}
+
+.sign-container {
+  width: 200px;
+  
+}
+
+.sign-in,
+.sign-up {
+  text-decoration: none;
+  padding: 10px;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.user-container{
+  display: flex;
+  align-items: baseline;
+  margin-right: 10px;
+}
+
+.user-logo{
+  background-color: gold;
+  padding: 6px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.logout{
+  cursor: pointer;
 }

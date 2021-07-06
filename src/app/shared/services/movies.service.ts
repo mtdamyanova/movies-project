@@ -28,7 +28,6 @@ export class MoviesService {
       .subscribe((data) => {
         this._movies$.next(data);
         this.isLoading$.next(false);
-        console.log(this.isLoading$.getValue(), 11111);
       });
   }
 
