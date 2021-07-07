@@ -74,7 +74,16 @@
     <div class="mb-3">
       <img [src]="imagePath.value" class="img-responsive" />
     </div>
-
+    <div class="mb-3">
+      <label for="duration">Movie duration</label>
+      <input
+        type="number"
+        name="duration"
+        id="duration"
+        class="form-control"
+        formControlName="duration"
+      />
+    </div>
     <div class="mb-3">
       <label for="description">Description</label>
       <textarea

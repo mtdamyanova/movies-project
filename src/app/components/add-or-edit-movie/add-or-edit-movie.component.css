@@ -18,3 +18,8 @@ img {
 .spanFull {
   color: white;
 }
+
+#duration {
+  width: 10%;
+  min-width: 80px;
+}
